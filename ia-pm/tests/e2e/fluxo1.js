@@ -1,0 +1,30 @@
+const { chromium } = require('playwright');
+const SH = (process.env.IAPM_SHOTS || '/tmp/iapm-shots') + '/'; require('fs').mkdirSync(SH, { recursive: true });
+(async () => {
+  const browser = await chromium.launch();
+  const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 }, locale: 'pt-BR' });
+  const page = await ctx.newPage();
+  const erros = [];
+  page.on('console', (m) => { if (['error', 'warning'].includes(m.type())) erros.push(`[${m.type()}] ${m.text()}`); });
+  page.on('pageerror', (e) => erros.push('[pageerror] ' + e.message));
+  await page.goto('http://localhost:8765/');
+  await page.waitForSelector('#login');
+  await page.screenshot({ path: SH + '01-login.png' });
+  // criar conta
+  await page.click('text=Não tenho conta. Criar agora');
+  await page.fill('#f-nome', 'Marina Alves');
+  await page.fill('#f-email', 'marina@exemplo.com.br');
+  await page.fill('#f-senha', 'SenhaForte123');
+  await page.fill('#f-org', 'Construtora Horizonte');
+  await page.screenshot({ path: SH + '02-criar-conta.png' });
+  await page.click('button[type=submit]');
+  await page.waitForSelector('#app');
+  await page.waitForTimeout(900);
+  await page.screenshot({ path: SH + '03-tour.png' });
+  console.log('tour visivel:', await page.isVisible('.tour-pop'));
+  await page.click('text=Pular tour');
+  await page.waitForTimeout(300);
+  await page.screenshot({ path: SH + '04-inicio.png' });
+  console.log('erros ate aqui:', erros);
+  await browser.close();
+})().catch((e) => { console.error('FALHOU', e); process.exit(1); });

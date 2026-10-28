@@ -1,0 +1,53 @@
+{
+  "setores": [
+    {"id": "og", "nome": "O&G Upstream / E&P", "curto": "O&G",
+     "descricao": "Reservatório, interfaces submarinas, conteúdo local, condições marítimas e contratos EPC offshore.",
+     "vocabulario": ["reservatório", "curva de declínio", "regulação ANP", "riscos geológicos", "EPC offshore", "NPT", "flaring"]},
+    {"id": "mineracao", "nome": "Mineração", "curto": "Mineração",
+     "descricao": "Geotecnia, variabilidade do minério, água, licenciamento e logística remota.",
+     "vocabulario": ["teor", "strip ratio", "licença ambiental", "barragem de rejeitos", "logística remota", "ANM"]},
+    {"id": "infraestrutura", "nome": "Infraestrutura civil", "curto": "Infraestrutura",
+     "descricao": "Desapropriações, interferências, licenças, demanda e interfaces urbanas; concessões e PPPs.",
+     "vocabulario": ["PPP", "concessão", "desapropriação", "DNIT", "ANTT", "projeção de demanda", "EVTEA"]},
+    {"id": "renovavel", "nome": "Energia renovável", "curto": "Renovável",
+     "descricao": "Conexão à rede, recurso energético, janelas climáticas e equipamentos críticos.",
+     "vocabulario": ["irradiância", "velocidade de vento", "ANEEL/ONS", "PPA", "curtailment", "P50"]},
+    {"id": "naval", "nome": "Naval / offshore", "curto": "Naval",
+     "descricao": "Interfaces de engenharia, modularização, estaleiro, cadeia de suprimentos e comissionamento.",
+     "vocabulario": ["DNV", "Bureau Veritas", "IMO", "NORMAM", "produtividade de estaleiro", "POB", "comissionamento"]},
+    {"id": "quimico", "nome": "Químico / petroquímico", "curto": "Químico",
+     "descricao": "Integração de processo, requisitos de segurança, paradas programadas e interfaces operacionais.",
+     "vocabulario": ["HAZID", "HAZOP", "turnaround", "FEED", "integração de processo"]},
+    {"id": "transversal", "nome": "Transversal / portfólio CAPEX", "curto": "Transversal",
+     "descricao": "Premissas de mercado, recursos limitados, capacidade de execução e riscos comuns entre projetos.",
+     "vocabulario": ["portfólio", "priorização", "dependências", "contingência", "gates"]}
+  ],
+  "fases": [
+    {"id": "fel1", "nome": "FEL 1", "ordem": 1, "descricao": "Identificação e triagem de oportunidades. Muita incerteza, pouco dado: o prompt deve ser aberto e exploratório.", "especificidade": 2, "abertura": 9},
+    {"id": "fel2", "nome": "FEL 2", "ordem": 2, "descricao": "Seleção de alternativas. Comparação de opções com dados de engenharia conceitual.", "especificidade": 4, "abertura": 7},
+    {"id": "fel3", "nome": "FEL 3", "ordem": 3, "descricao": "Definição do projeto. Escopo, estimativa e plano consolidados para o gate de decisão.", "especificidade": 7, "abertura": 5},
+    {"id": "fid", "nome": "FID", "ordem": 4, "descricao": "Decisão final de investimento. Síntese executiva, teste de premissas e narrativa para o comitê.", "especificidade": 7, "abertura": 5},
+    {"id": "execucao", "nome": "Execução", "ordem": 5, "descricao": "Monitoramento e controle. Respostas rápidas, acionáveis e baseadas em dados reais do projeto.", "especificidade": 9, "abertura": 3},
+    {"id": "encerramento", "nome": "Encerramento", "ordem": 6, "descricao": "Lições aprendidas, handover e gestão do conhecimento.", "especificidade": 7, "abertura": 6}
+  ],
+  "disciplinas": [
+    {"id": "governanca", "nome": "Governança", "foco": "Estrutura de autoridade e tomada de decisão: FID, gate reviews, comitê de portfólio."},
+    {"id": "escopo", "nome": "Escopo", "foco": "Definição e controle do trabalho: EAP, controle de mudanças, contratos EPC."},
+    {"id": "cronograma", "nome": "Cronograma", "foco": "Planejamento e controle do tempo: CPM, linha de base, análise de atraso."},
+    {"id": "financas", "nome": "Finanças", "foco": "Orçamento, CAPEX e controle de custos: EVM, curva S, estimativas AACE."},
+    {"id": "partes_interessadas", "nome": "Partes Interessadas", "foco": "Engajamento e comunicação: relatórios executivos, comunidades, financiadores."},
+    {"id": "recursos", "nome": "Recursos", "foco": "Equipe, materiais e equipamentos: mão de obra, POB, itens de longo prazo de entrega."},
+    {"id": "riscos", "nome": "Riscos", "foco": "Identificação, análise e resposta: matriz de riscos, Monte Carlo, SMS/HSE."}
+  ],
+  "classificacao_dados": [
+    {"id": "publica", "nome": "Pública", "descricao": "Informação já divulgada ou sem restrição de uso.", "permite_ia": true},
+    {"id": "interna", "nome": "Interna", "descricao": "Uso interno da organização, sem sigilo contratual relevante.", "permite_ia": true},
+    {"id": "confidencial", "nome": "Confidencial", "descricao": "Informação comercial, contratual ou estratégica. Use apenas com autorização e ambiente aprovado.", "permite_ia": true},
+    {"id": "restrita", "nome": "Restrita", "descricao": "Dados pessoais sensíveis, segredos industriais, informação privilegiada ou sujeita a sigilo legal. Bloqueada por padrão.", "permite_ia": false}
+  ],
+  "risco_de_uso": [
+    {"id": "baixo", "nome": "Baixo", "descricao": "Revisão textual, organização de lições aprendidas. Controles simples."},
+    {"id": "medio", "nome": "Médio", "descricao": "Análise preliminar de riscos, consolidação de alternativas. Validação por responsável técnico."},
+    {"id": "alto", "nome": "Alto", "descricao": "Apoio a decisões de investimento, pleitos contratuais e comunicações a reguladores. Validação formal e registro da decisão."}
+  ]
+}

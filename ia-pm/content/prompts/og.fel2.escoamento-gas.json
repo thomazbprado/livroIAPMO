@@ -1,0 +1,174 @@
+{
+  "id": "og.fel2.escoamento-gas",
+  "titulo": "Avaliação de alternativas de escoamento de gás",
+  "setor": "og",
+  "fase": "fel2",
+  "disciplinas": [
+    "financas",
+    "riscos",
+    "governanca"
+  ],
+  "origem": {
+    "tipo": "livro",
+    "referencia": "Capítulo 6, Prompt 6.1"
+  },
+  "resumo": "Compara escoamento por gasoduto e reinjeção do gás, com riscos técnicos, ambientais e regulatórios e critérios para o comitê.",
+  "decisao_apoiada": "Se o projeto deve passar ao FEL 3 com escoamento por gasoduto ou com reinjeção.",
+  "quando_usar": "Em FEL 2, quando há duas alternativas estruturais com CAPEX e perfis de receita muito diferentes.",
+  "nao_use_para": "Substituir estudos de reservatório, simulação de escoamento e modelo econômico definitivo.",
+  "classificacao_risco_uso": "alto",
+  "o_que_voce_recebe": [
+    "Resumo executivo de até 150 palavras",
+    "Tabela comparativa por critério",
+    "Top 3 riscos de cada alternativa",
+    "Critérios para o comitê de investimento",
+    "Razões de CAPEX calculadas por código"
+  ],
+  "variaveis": [
+    {
+      "nome": "bacia",
+      "rotulo": "Bacia",
+      "tipo": "texto",
+      "padrao": "Bacia de Santos",
+      "max_chars": 80
+    },
+    {
+      "nome": "producao_gas",
+      "rotulo": "Produção estimada de gás associado",
+      "tipo": "numero",
+      "padrao": 8,
+      "unidade": "MMm³/dia",
+      "minimo": 1e-06
+    },
+    {
+      "nome": "restricao",
+      "rotulo": "Exigência regulatória ou ambiental relevante",
+      "tipo": "texto_longo",
+      "padrao": "exigências da ANP para redução de queima (flaring)",
+      "max_chars": 600
+    },
+    {
+      "nome": "alternativas",
+      "rotulo": "Alternativas em avaliação",
+      "tipo": "tabela",
+      "padrao": [
+        {
+          "id": "Alternativa A",
+          "descricao": "Construção de gasoduto submarino de 280 km",
+          "capex": 10.5
+        },
+        {
+          "id": "Alternativa B",
+          "descricao": "Reinjeção total do gás no reservatório para ganho de recuperação de óleo",
+          "capex": 2.2
+        }
+      ],
+      "min_linhas": 2,
+      "max_linhas": 4,
+      "colunas": [
+        {
+          "nome": "id",
+          "rotulo": "Alternativa",
+          "tipo": "texto"
+        },
+        {
+          "nome": "descricao",
+          "rotulo": "Descrição",
+          "tipo": "texto",
+          "sem_rotulo": true
+        },
+        {
+          "nome": "capex",
+          "rotulo": "CAPEX estimado (R$ bilhões)",
+          "tipo": "moeda",
+          "rotulo_curto": "CAPEX estimado",
+          "prefixo": "R$ ",
+          "sufixo": " bilhões",
+          "minimo": 0
+        }
+      ]
+    }
+  ],
+  "rctif": {
+    "papel": "Atue como um Engenheiro de Projetos Sênior e Especialista em Viabilidade Econômica de projetos CAPEX no setor de Óleo e Gás (E&P) Offshore.",
+    "contexto": "Estamos na fase FEL 2 de um projeto no pré-sal da {{bacia}}. A produção de gás associado estimada é de {{producao_gas}} MMm³/dia. Temos as seguintes alternativas:\n\n{{alternativas}}\n\nA decisão precisa equilibrar o investimento inicial de cada alternativa contra o custo de oportunidade de não monetizar o gás, considerando: {{restricao}}.",
+    "tarefa": "Elabore uma matriz comparativa detalhada entre as alternativas, destacando os principais riscos técnicos, ambientais e regulatórios, além de sugerir 3 critérios críticos que o Comitê de Investimento deve usar para a decisão de passagem para o FEL 3.",
+    "instrucoes": "Estruture a análise de forma verificável. Em cada etapa, diferencie dados fornecidos, premissas, hipóteses e inferências. Declare os dados ausentes que podem alterar a conclusão. Não invente valores, cláusulas, requisitos legais, fontes ou resultados de simulações. Em seguida:\n1. Considere a complexidade logística de lançamento de dutos em águas profundas, quando houver alternativa de gasoduto.\n2. Avalie o impacto da reinjeção na curva de produção de óleo e na integridade do reservatório a longo prazo, quando houver alternativa de reinjeção.\n3. Inclua a perspectiva regulatória sobre o aproveitamento de gás natural, indicando o que precisa ser confirmado.\n4. Estruture a análise de forma objetiva, pesando prós e contras de cada opção sob a ótica de VPL e TIR qualitativos, sem inventar fluxos de caixa.",
+    "formato": "Apresente a resposta no seguinte formato:\n1. Resumo Executivo (máximo 150 palavras).\n2. Tabela Comparativa (Critério | Alternativas).\n3. Análise de Riscos (Top 3 riscos para cada alternativa).\n4. Recomendação de Critérios para o Comitê de Investimento (lista numerada)."
+  },
+  "verificacoes": [
+    {
+      "id": "capex_por_mmm3",
+      "rotulo": "CAPEX por MMm³/dia de gás",
+      "por_linha": {
+        "tabela": "alternativas",
+        "chave": "id",
+        "expr": "capex * 1000 / producao_gas"
+      },
+      "expr": "",
+      "unidade": "R$ milhões por MMm³/dia",
+      "casas": 1,
+      "tolerancia_rel": 0.005
+    },
+    {
+      "id": "dif_capex",
+      "rotulo": "Diferença entre o maior e o menor CAPEX",
+      "expr": "max(alternativas.capex) - min(alternativas.capex)",
+      "unidade": "R$ bilhões",
+      "casas": 2,
+      "tolerancia_rel": 0.005
+    },
+    {
+      "id": "razao_capex",
+      "rotulo": "Razão entre o maior e o menor CAPEX",
+      "expr": "max(alternativas.capex) / min(alternativas.capex)",
+      "unidade": "vezes",
+      "casas": 2,
+      "tolerancia_rel": 0.005
+    },
+    {
+      "id": "volume_anual",
+      "rotulo": "Volume anual de gás (produção × 365)",
+      "expr": "producao_gas * 365",
+      "unidade": "MMm³/ano",
+      "casas": 0,
+      "tolerancia_rel": 0.005
+    }
+  ],
+  "avisos": [
+    "O resultado é um rascunho analítico gerado por IA e depende dos dados informados. Valide com o responsável técnico antes de qualquer uso em decisão.",
+    "O prompt compara as alternativas de forma qualitativa. VPL e TIR dependem de modelo econômico com preços, curvas e prazos que você deve fornecer.",
+    "Requisitos regulatórios citados devem ser confirmados com a área regulatória."
+  ],
+  "validacao_humana": {
+    "papeis_sugeridos": [
+      "Engenheiro de reservatório",
+      "Engenheiro submarino",
+      "Área regulatória",
+      "Analista econômico"
+    ],
+    "checklist": [
+      "Conferi os números calculados pelo sistema contra a minha planilha ou fonte de origem.",
+      "Verifiquei se as premissas e os dados ausentes listados fazem sentido para o projeto.",
+      "Nenhum valor, norma ou cláusula citada foi inventado: tudo tem origem no material do projeto ou foi confirmado.",
+      "Os riscos de reservatório e de escoamento foram revisados pelos especialistas.",
+      "Os critérios para o comitê estão alinhados à política de investimento."
+    ]
+  },
+  "casos_de_teste": [
+    {
+      "nome": "Exemplo do livro",
+      "variaveis": {},
+      "esperado": {
+        "dif_capex": 8.3,
+        "volume_anual": 2920.0
+      }
+    }
+  ],
+  "versao": "1.0.0",
+  "status": "publicado",
+  "nivel_minimo": 1,
+  "modelo_recomendado": "avancado",
+  "esforco": "high",
+  "saida_tokens_estimados": 7000
+}

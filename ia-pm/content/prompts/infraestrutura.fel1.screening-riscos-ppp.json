@@ -1,0 +1,116 @@
+{
+  "id": "infraestrutura.fel1.screening-riscos-ppp",
+  "titulo": "Screening de riscos de PPP rodoviária",
+  "setor": "infraestrutura",
+  "fase": "fel1",
+  "disciplinas": [
+    "riscos",
+    "partes_interessadas",
+    "financas"
+  ],
+  "origem": {
+    "tipo": "livro",
+    "referencia": "Capítulo 6, Prompt 6.4"
+  },
+  "resumo": "Monta a matriz preliminar de riscos de uma concessão rodoviária, com alocação sugerida entre parceiro público e privado.",
+  "decisao_apoiada": "Se a oportunidade tem viabilidade e bancabilidade para seguir ao estudo completo.",
+  "quando_usar": "No início do EVTEA, antes de contratar estudos detalhados.",
+  "nao_use_para": "Definir a matriz contratual final. A alocação sugerida precisa passar por análise jurídica e do financiador.",
+  "classificacao_risco_uso": "medio",
+  "o_que_voce_recebe": [
+    "Visão geral do perfil de risco",
+    "Matriz de riscos críticos com alocação sugerida",
+    "Mitigações preliminares dos 3 maiores riscos",
+    "CAPEX por km calculado por código"
+  ],
+  "variaveis": [
+    {
+      "nome": "extensao_km",
+      "rotulo": "Extensão da rodovia",
+      "tipo": "numero",
+      "padrao": 320,
+      "unidade": "km",
+      "minimo": 0.1
+    },
+    {
+      "nome": "capex",
+      "rotulo": "CAPEX preliminar",
+      "tipo": "moeda",
+      "padrao": 3.5,
+      "unidade": "R$ bilhões",
+      "minimo": 0
+    },
+    {
+      "nome": "financiador",
+      "rotulo": "Financiador",
+      "tipo": "texto",
+      "padrao": "BNDES",
+      "max_chars": 80
+    },
+    {
+      "nome": "controle",
+      "rotulo": "Órgão de controle",
+      "tipo": "texto",
+      "padrao": "Tribunal de Contas do Estado (TCE)",
+      "max_chars": 120
+    },
+    {
+      "nome": "caracteristicas",
+      "rotulo": "Características relevantes do trecho",
+      "tipo": "texto_longo",
+      "padrao": "A rodovia atravessa duas áreas de proteção ambiental e possui alto tráfego de veículos pesados.",
+      "max_chars": 1500
+    }
+  ],
+  "rctif": {
+    "papel": "Atue como um Especialista em Estruturação de PPPs e Concessões de Infraestrutura Rodoviária, com vasta experiência em análise de riscos para financiamentos do {{financiador}}.",
+    "contexto": "Estamos na fase FEL 1 de estruturação de uma Parceria Público-Privada (PPP) para a duplicação e operação de {{extensao_km}} km de rodovia estadual. O CAPEX preliminar é estimado em R$ {{capex}} bilhões. Precisamos estruturar o capítulo de Screening de Riscos do EVTEA (Estudo de Viabilidade Técnica, Econômica e Ambiental) que será avaliado pelo {{financiador}} para financiamento e pelo {{controle}} para controle. {{caracteristicas}}",
+    "tarefa": "Desenvolva uma Matriz Preliminar de Riscos (Screening) focada nos principais gargalos que podem inviabilizar o projeto ou causar estouros de CAPEX, classificando-os para alocação entre o Parceiro Público e o Parceiro Privado.",
+    "instrucoes": "Estruture a análise de forma verificável. Em cada etapa, diferencie dados fornecidos, premissas, hipóteses e inferências. Declare os dados ausentes que podem alterar a conclusão. Não invente valores, cláusulas, requisitos legais, fontes ou resultados de simulações. Em seguida:\n1. Foque em riscos de alta severidade típicos de infraestrutura viária no Brasil: desapropriações, licenciamento ambiental, risco de demanda (tráfego) e risco geológico.\n2. Proponha uma matriz de alocação (quem assume o risco: Público, Privado ou Compartilhado) conforme boas práticas de alocação de riscos, indicando o racional.\n3. Considere o impacto das áreas de proteção ambiental no cronograma de licenciamento prévio (LP) e de instalação (LI).\n4. O documento deve transmitir solidez técnica para escrutínio do órgão de controle.",
+    "formato": "Estruture a resposta com:\n1. Visão Geral do Perfil de Risco do Projeto.\n2. Matriz de Riscos Críticos (Tabela com as colunas Risco | Descrição | Impacto no CAPEX | Alocação Sugerida).\n3. Estratégias Preliminares de Mitigação para os 3 maiores riscos."
+  },
+  "verificacoes": [
+    {
+      "id": "capex_por_km",
+      "rotulo": "CAPEX por km",
+      "expr": "capex * 1000 / extensao_km",
+      "unidade": "R$ milhões/km",
+      "casas": 2,
+      "tolerancia_rel": 0.005
+    }
+  ],
+  "avisos": [
+    "O resultado é um rascunho analítico gerado por IA e depende dos dados informados. Valide com o responsável técnico antes de qualquer uso em decisão.",
+    "A alocação de riscos sugerida é uma proposta de partida. Ela deve ser discutida com o jurídico e com o financiador.",
+    "Prazos e exigências de licenciamento variam por órgão e por estado: confirme com a área ambiental."
+  ],
+  "validacao_humana": {
+    "papeis_sugeridos": [
+      "Estruturador de projetos",
+      "Jurídico",
+      "Área ambiental"
+    ],
+    "checklist": [
+      "Conferi os números calculados pelo sistema contra a minha planilha ou fonte de origem.",
+      "Verifiquei se as premissas e os dados ausentes listados fazem sentido para o projeto.",
+      "Nenhum valor, norma ou cláusula citada foi inventado: tudo tem origem no material do projeto ou foi confirmado.",
+      "A alocação sugerida foi revisada pelo jurídico.",
+      "Os riscos ambientais e fundiários foram confirmados com as áreas responsáveis."
+    ]
+  },
+  "casos_de_teste": [
+    {
+      "nome": "Exemplo do livro",
+      "variaveis": {},
+      "esperado": {
+        "capex_por_km": 10.94
+      }
+    }
+  ],
+  "versao": "1.0.0",
+  "status": "publicado",
+  "nivel_minimo": 1,
+  "modelo_recomendado": "avancado",
+  "esforco": "high",
+  "saida_tokens_estimados": 7000
+}

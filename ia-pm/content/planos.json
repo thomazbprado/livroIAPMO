@@ -1,0 +1,34 @@
+{
+  "hipotese": "Preços, créditos e limites são hipóteses ilustrativas para validação de mercado. Não constituem oferta firme e devem ser ajustados com dados reais de consumo.",
+  "moeda": "BRL",
+  "margem_alvo": 0.70,
+  "credito_preco_referencia_brl": 0.12,
+  "dias_leitor_padrao": 180,
+  "planos": [
+    {"id": "explorar", "nome": "Explorar", "nivel": 0, "preco_mensal_brl": 0, "assentos": 1, "creditos_mensais": 0,
+     "api": false, "byok": true, "exportar_auditoria": false, "rate_limit_min": 5,
+     "destaque": "Conheça a plataforma",
+     "descricao": "Navegue pelo catálogo, abra os prompts de amostra e teste no modo demonstração ou com sua própria chave.",
+     "recursos": ["Catálogo completo em modo resumo", "3 prompts de amostra abertos", "Execução com sua própria chave (BYOK) nos prompts de amostra", "Modo demonstração sem custo"]},
+    {"id": "leitor", "nome": "Leitor", "nivel": 1, "preco_mensal_brl": 79, "assentos": 1, "creditos_mensais": 300,
+     "api": true, "byok": true, "exportar_auditoria": true, "rate_limit_min": 10,
+     "destaque": "Para quem comprou o livro",
+     "descricao": "Todos os prompts do livro, prontos para executar, com verificação numérica e registro de auditoria. Compradores do livro recebem este nível por um período.",
+     "recursos": ["Todos os 11 prompts do livro", "300 créditos de IA por mês", "Sua própria chave (BYOK) ou créditos", "API para uso em planilhas e rotinas", "Exportação do registro de auditoria"]},
+    {"id": "equipe", "nome": "Equipe", "nivel": 2, "preco_mensal_brl": 1490, "assentos": 10, "creditos_mensais": 8000,
+     "api": true, "byok": true, "exportar_auditoria": true, "rate_limit_min": 60,
+     "destaque": "Para PMOs e áreas de projetos",
+     "descricao": "Até 10 usuários na mesma organização, créditos compartilhados, política de dados e trilha de auditoria da equipe.",
+     "recursos": ["Até 10 usuários", "8.000 créditos de IA por mês compartilhados", "Política de classificação de dados da organização", "Chaves de API da organização", "Suporte por e-mail"]},
+    {"id": "corporativo", "nome": "Corporativo", "nivel": 3, "preco_mensal_brl": null, "assentos": 100, "creditos_mensais": 0,
+     "api": true, "byok": true, "exportar_auditoria": true, "rate_limit_min": 300,
+     "destaque": "Para grandes empresas, EPCs e consultorias",
+     "descricao": "Sob consulta: assentos ampliados, retenção configurável, contrato e ambiente dedicados, integração com a sua identidade corporativa e prompts sob medida.",
+     "recursos": ["Assentos e créditos sob medida", "Retenção de dados configurável", "Prompts personalizados por setor", "Integrações e SLA em contrato"]}
+  ],
+  "pacotes_creditos": [
+    {"id": "c500", "creditos": 500, "preco_brl": 59},
+    {"id": "c2000", "creditos": 2000, "preco_brl": 199},
+    {"id": "c10000", "creditos": 10000, "preco_brl": 890}
+  ]
+}

@@ -1,0 +1,188 @@
+{
+  "id": "naval.encerramento.licoes-aprendidas",
+  "titulo": "Síntese de lições aprendidas e documento de encerramento",
+  "setor": "naval",
+  "fase": "encerramento",
+  "disciplinas": [
+    "governanca",
+    "escopo",
+    "cronograma",
+    "financas",
+    "riscos",
+    "recursos",
+    "partes_interessadas"
+  ],
+  "origem": {
+    "tipo": "livro",
+    "referencia": "Capítulo 5, Prompt 5.5"
+  },
+  "resumo": "Converte os registros do projeto em lições aprendidas por domínio PMBOK 8, com causa raiz, ação corretiva e recomendações para o próximo projeto.",
+  "decisao_apoiada": "O que a organização deve incorporar à sua base de conhecimento e mudar no próximo projeto similar.",
+  "quando_usar": "No encerramento, com relatórios, atas, registros de incidentes e auditoria de custos em mãos.",
+  "nao_use_para": "Atribuir responsabilidade individual por desvios. O objetivo é aprender com causas e processos.",
+  "classificacao_risco_uso": "baixo",
+  "o_que_voce_recebe": [
+    "Dashboard de desempenho final",
+    "Tabela de lições por domínio PMBOK 8",
+    "Recomendações para o próximo projeto",
+    "Checklist de handover",
+    "Desvios de custo e prazo calculados por código"
+  ],
+  "variaveis": [
+    {
+      "nome": "ativo",
+      "rotulo": "Ativo entregue",
+      "tipo": "texto",
+      "padrao": "navio-sonda de 7ª geração",
+      "max_chars": 120
+    },
+    {
+      "nome": "capex_orcado",
+      "rotulo": "CAPEX orçado",
+      "tipo": "moeda",
+      "padrao": 1.1,
+      "unidade": "US$ bilhões",
+      "minimo": 1e-06
+    },
+    {
+      "nome": "custo_final",
+      "rotulo": "Custo final",
+      "tipo": "moeda",
+      "padrao": 1.28,
+      "unidade": "US$ bilhões",
+      "minimo": 0
+    },
+    {
+      "nome": "prazo_orig",
+      "rotulo": "Prazo original",
+      "tipo": "numero",
+      "padrao": 48,
+      "unidade": "meses",
+      "minimo": 1
+    },
+    {
+      "nome": "prazo_real",
+      "rotulo": "Prazo real",
+      "tipo": "numero",
+      "padrao": 58,
+      "unidade": "meses",
+      "minimo": 1
+    },
+    {
+      "nome": "num_mudancas",
+      "rotulo": "Mudanças de escopo aprovadas",
+      "tipo": "numero",
+      "padrao": 3,
+      "minimo": 0
+    },
+    {
+      "nome": "mudancas_valor",
+      "rotulo": "Valor das mudanças de escopo aprovadas",
+      "tipo": "moeda",
+      "padrao": 95,
+      "unidade": "US$ milhões",
+      "minimo": 0
+    },
+    {
+      "nome": "eventos",
+      "rotulo": "Principais eventos do projeto",
+      "tipo": "texto_longo",
+      "padrao": "• Atraso de 6 meses no fornecimento de equipamentos de perfuração (NOV)\n• Greve de 22 dias no estaleiro\n• 2 acidentes de trabalho (sem fatalidades)",
+      "max_chars": 4000,
+      "ajuda": "Liste os eventos relevantes. Quanto mais evidência (datas, valores), melhor a análise."
+    }
+  ],
+  "rctif": {
+    "papel": "Atue como um Gestor de Conhecimento de Projetos (Knowledge Manager) especializado em encerramento de projetos CAPEX do setor naval/offshore, com foco em captura e estruturação de lições aprendidas para uso em projetos futuros.",
+    "contexto": "Encerramento de projeto de construção de {{ativo}} (CAPEX orçado: US$ {{capex_orcado}} bilhões; prazo original: {{prazo_orig}} meses; prazo real: {{prazo_real}} meses; custo final: US$ {{custo_final}} bilhões). Mudanças de escopo aprovadas pelo cliente: {{num_mudancas}}, somando US$ {{mudancas_valor}} milhões. Principais eventos do projeto:\n{{eventos}}",
+    "tarefa": "Elabore o relatório de lições aprendidas e o documento de encerramento do projeto.",
+    "instrucoes": "Estruture a análise de forma verificável. Em cada etapa, diferencie dados fornecidos, premissas, hipóteses e inferências. Declare os dados ausentes que podem alterar a conclusão. Não invente valores, cláusulas, requisitos legais, fontes ou resultados de simulações. Em seguida:\n1. Classifique as lições aprendidas por domínio PMBOK® 8 (Governança, Escopo, Cronograma, Finanças, Riscos, Recursos, Partes Interessadas).\n2. Para cada lição, identifique: causa raiz, impacto no projeto, ação corretiva aplicada e recomendação para projetos futuros. Quando a causa raiz não estiver nos registros, declare-a como hipótese.\n3. Calcule o custo total das mudanças de escopo e dos desvios não planejados.\n4. Elabore o índice de desempenho do projeto (prazo, custo, qualidade, SMS), declarando quais dimensões não têm dados suficientes.\n5. Proponha 5 melhorias de processo para o próximo projeto similar.",
+    "formato": "Relatório estruturado em quatro partes: (1) Dashboard de desempenho final, (2) Tabela de lições aprendidas (quantidade definida pela relevância e pela evidência disponível), (3) Recomendações para o próximo projeto, (4) Checklist de handover para a equipe de operações."
+  },
+  "verificacoes": [
+    {
+      "id": "desvio_custo",
+      "rotulo": "Desvio de custo (custo final − orçado)",
+      "expr": "custo_final - capex_orcado",
+      "unidade": "US$ bilhões",
+      "casas": 3,
+      "tolerancia_rel": 0.005
+    },
+    {
+      "id": "desvio_custo_pct",
+      "rotulo": "Desvio de custo sobre o orçado",
+      "expr": "(custo_final / capex_orcado - 1) * 100",
+      "unidade": "%",
+      "casas": 1,
+      "tolerancia_rel": 0.005
+    },
+    {
+      "id": "desvio_prazo",
+      "rotulo": "Desvio de prazo (real − original)",
+      "expr": "prazo_real - prazo_orig",
+      "unidade": "meses",
+      "casas": 0,
+      "tolerancia_rel": 0.005
+    },
+    {
+      "id": "desvio_prazo_pct",
+      "rotulo": "Desvio de prazo sobre o original",
+      "expr": "(prazo_real / prazo_orig - 1) * 100",
+      "unidade": "%",
+      "casas": 1,
+      "tolerancia_rel": 0.005
+    },
+    {
+      "id": "mudancas_no_desvio_pct",
+      "rotulo": "Mudanças de escopo como parcela do desvio de custo",
+      "expr": "mudancas_valor / ((custo_final - capex_orcado) * 1000) * 100",
+      "unidade": "%",
+      "casas": 1,
+      "tolerancia_rel": 0.005
+    },
+    {
+      "id": "desvio_fora_escopo",
+      "rotulo": "Desvio de custo não explicado por mudanças de escopo aprovadas",
+      "expr": "(custo_final - capex_orcado) * 1000 - mudancas_valor",
+      "unidade": "US$ milhões",
+      "casas": 1,
+      "tolerancia_rel": 0.005
+    }
+  ],
+  "avisos": [
+    "O resultado é um rascunho analítico gerado por IA e depende dos dados informados. Valide com o responsável técnico antes de qualquer uso em decisão.",
+    "Lições aprendidas devem ser validadas pela equipe do projeto antes de entrarem na base de conhecimento.",
+    "Não informe nomes de pessoas nem dados pessoais sensíveis nos eventos."
+  ],
+  "validacao_humana": {
+    "papeis_sugeridos": [
+      "Gerente do projeto",
+      "Gestor de conhecimento",
+      "Equipe de encerramento"
+    ],
+    "checklist": [
+      "Conferi os números calculados pelo sistema contra a minha planilha ou fonte de origem.",
+      "Verifiquei se as premissas e os dados ausentes listados fazem sentido para o projeto.",
+      "Nenhum valor, norma ou cláusula citada foi inventado: tudo tem origem no material do projeto ou foi confirmado.",
+      "As causas raiz declaradas como hipótese foram confirmadas com a equipe.",
+      "O checklist de handover foi revisado pela equipe de operações."
+    ]
+  },
+  "casos_de_teste": [
+    {
+      "nome": "Exemplo do livro",
+      "variaveis": {},
+      "esperado": {
+        "desvio_custo": 0.18,
+        "desvio_prazo": 10.0,
+        "desvio_fora_escopo": 85.0
+      }
+    }
+  ],
+  "versao": "1.0.0",
+  "status": "publicado",
+  "nivel_minimo": 1,
+  "modelo_recomendado": "avancado",
+  "esforco": "high",
+  "saida_tokens_estimados": 7000
+}

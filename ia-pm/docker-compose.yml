@@ -1,0 +1,31 @@
+# Sobe o IA PM com PostgreSQL. Uso:  cp .env.example .env  (edite)  e depois  docker compose up --build
+services:
+  db:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: iapm
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?defina POSTGRES_PASSWORD no .env}
+      POSTGRES_DB: iapm
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U iapm"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    env_file: .env
+    environment:
+      IAPM_DATABASE_URL: postgresql+psycopg://iapm:${POSTGRES_PASSWORD}@db:5432/iapm
+    ports:
+      - "8000:8000"
+
+volumes:
+  pgdata:

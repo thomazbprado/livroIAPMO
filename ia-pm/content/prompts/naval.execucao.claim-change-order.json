@@ -1,0 +1,219 @@
+{
+  "id": "naval.execucao.claim-change-order",
+  "titulo": "Estruturação de claim por change orders em módulo de FPSO",
+  "setor": "naval",
+  "fase": "execucao",
+  "disciplinas": [
+    "escopo",
+    "cronograma",
+    "financas",
+    "partes_interessadas"
+  ],
+  "origem": {
+    "tipo": "livro",
+    "referencia": "Capítulo 6, Prompt 6.6"
+  },
+  "resumo": "Estrutura a espinha dorsal de um pleito de extensão de prazo e ressarcimento de custos decorrente de change orders aprovadas.",
+  "decisao_apoiada": "Como notificar formalmente o cliente e preservar direitos contratuais sem escalar para disputa.",
+  "quando_usar": "Quando o cliente aprovou a mudança técnica, mas ainda não reconheceu o impacto de custo e de prazo.",
+  "nao_use_para": "Substituir a análise contratual de advogados e especialistas em claims. O texto gerado é a estrutura de partida.",
+  "classificacao_risco_uso": "alto",
+  "o_que_voce_recebe": [
+    "Documento-base do claim (notificação formal)",
+    "Base contratual e fatos geradores",
+    "Análise do impacto no caminho crítico",
+    "Estrutura de custos diretos e indiretos",
+    "Totais das COs calculados por código"
+  ],
+  "variaveis": [
+    {
+      "nome": "ativo",
+      "rotulo": "Objeto do contrato",
+      "tipo": "texto",
+      "padrao": "módulo de compressão para um FPSO",
+      "max_chars": 150
+    },
+    {
+      "nome": "valor_contrato",
+      "rotulo": "Valor do contrato EPC",
+      "tipo": "moeda",
+      "padrao": 450,
+      "unidade": "R$ milhões",
+      "minimo": 1e-06
+    },
+    {
+      "nome": "janela_dias",
+      "rotulo": "Janela de emissão das COs",
+      "tipo": "numero",
+      "padrao": 60,
+      "unidade": "dias",
+      "minimo": 1
+    },
+    {
+      "nome": "motivo",
+      "rotulo": "Origem técnica das mudanças",
+      "tipo": "texto_longo",
+      "padrao": "revisão na especificação do gás do reservatório, que exigiu a substituição de tubulações de aço carbono por ligas especiais (Super Duplex)",
+      "max_chars": 1500
+    },
+    {
+      "nome": "impactos",
+      "rotulo": "Impactos já identificados",
+      "tipo": "texto_longo",
+      "padrao": "impacto direto na compra de materiais (mais caros e com maior lead time) e na necessidade de qualificação de novos soldadores",
+      "max_chars": 1500
+    },
+    {
+      "nome": "cos",
+      "rotulo": "Change orders emitidas",
+      "tipo": "tabela",
+      "padrao": [
+        {
+          "id": "CO-01",
+          "descricao": "Substituição de tubulações por liga especial (detalhar escopo)",
+          "custo": null,
+          "prazo": null
+        },
+        {
+          "id": "CO-02",
+          "descricao": "Substituição de tubulações por liga especial (detalhar escopo)",
+          "custo": null,
+          "prazo": null
+        },
+        {
+          "id": "CO-03",
+          "descricao": "Substituição de tubulações por liga especial (detalhar escopo)",
+          "custo": null,
+          "prazo": null
+        }
+      ],
+      "min_linhas": 1,
+      "max_linhas": 20,
+      "ajuda": "Preencha custo direto e prazo de cada CO, quando já estimados, para habilitar a verificação dos totais.",
+      "colunas": [
+        {
+          "nome": "id",
+          "rotulo": "Código",
+          "tipo": "texto"
+        },
+        {
+          "nome": "descricao",
+          "rotulo": "Descrição",
+          "tipo": "texto",
+          "sem_rotulo": true
+        },
+        {
+          "nome": "custo",
+          "rotulo": "Custo direto estimado (R$ milhões)",
+          "tipo": "moeda",
+          "obrigatoria": false,
+          "rotulo_curto": "custo direto estimado",
+          "prefixo": "R$ ",
+          "sufixo": " milhões",
+          "minimo": 0
+        },
+        {
+          "nome": "prazo",
+          "rotulo": "Impacto estimado no prazo (dias)",
+          "tipo": "numero",
+          "obrigatoria": false,
+          "rotulo_curto": "impacto no prazo",
+          "sufixo": " dias",
+          "minimo": 0
+        }
+      ]
+    }
+  ],
+  "rctif": {
+    "papel": "Atue como um Gestor de Contratos Sênior e Especialista em Pleitos (Claims) para projetos EPC no setor Naval e Offshore.",
+    "contexto": "Somos um estaleiro executando a construção de um {{ativo}} sob um contrato EPC de R$ {{valor_contrato}} milhões. A operadora (cliente) emitiu change orders (COs) nos últimos {{janela_dias}} dias, decorrentes de {{motivo}}. Essa mudança gerou {{impactos}}. O cliente aprovou a mudança técnica, mas ainda não reconheceu o impacto financeiro e de cronograma. As COs emitidas são:\n\n{{cos}}",
+    "tarefa": "Estruture a espinha dorsal de um Claim (Pleito) formal de extensão de prazo (EOT, Extension of Time) e ressarcimento de custos adicionais, demonstrando claramente a relação de causa e efeito entre as Change Orders e o impacto no projeto.",
+    "instrucoes": "Estruture a análise de forma verificável. Em cada etapa, diferencie dados fornecidos, premissas, hipóteses e inferências. Declare os dados ausentes que podem alterar a conclusão. Não invente valores, cláusulas, requisitos legais, fontes ou resultados de simulações. Em seguida:\n1. Utilize a metodologia de Análise de Atrasos (Delay Analysis) para justificar a extensão de prazo, mencionando o impacto no Caminho Crítico do projeto e indicando quais dados de cronograma são necessários.\n2. Separe os custos diretos dos custos indiretos (extensão da permanência da equipe de gestão e overhead do estaleiro), sem inventar valores que não foram informados.\n3. O tom deve ser firme, embasado contratualmente, mas colaborativo, visando a negociação e não o litígio imediato.\n4. Destaque a importância da aprovação prévia das COs pelo cliente como base do pleito, sem citar cláusulas contratuais que não tenham sido fornecidas.",
+    "formato": "Estruture o documento base do Claim da seguinte forma:\n• TÍTULO: Notificação Formal de Impacto: Change Orders\n• 1. Base Contratual e Fatos Geradores (Resumo das COs).\n• 2. Impacto no Cronograma (Análise do Caminho Crítico e solicitação de EOT).\n• 3. Impacto Financeiro (Estrutura de custos diretos e indiretos em R$).\n• 4. Conclusão e Solicitação de Aditivo Contratual."
+  },
+  "verificacoes": [
+    {
+      "id": "total_custo_direto",
+      "rotulo": "Total dos custos diretos estimados das COs",
+      "expr": "soma(cos.custo)",
+      "unidade": "R$ milhões",
+      "casas": 2,
+      "tolerancia_rel": 0.005
+    },
+    {
+      "id": "total_prazo",
+      "rotulo": "Total dos impactos de prazo estimados das COs",
+      "expr": "soma(cos.prazo)",
+      "unidade": "dias",
+      "casas": 0,
+      "tolerancia_rel": 0.005,
+      "nota": "soma simples; o impacto no caminho crítico pode ser menor se houver paralelismo"
+    },
+    {
+      "id": "pct_contrato",
+      "rotulo": "Custo direto das COs sobre o valor do contrato",
+      "expr": "soma(cos.custo) / valor_contrato * 100",
+      "unidade": "%",
+      "casas": 2,
+      "tolerancia_rel": 0.005
+    }
+  ],
+  "avisos": [
+    "O resultado é um rascunho analítico gerado por IA e depende dos dados informados. Valide com o responsável técnico antes de qualquer uso em decisão.",
+    "Os totais só são calculados quando todas as COs têm custo e prazo preenchidos.",
+    "A soma de prazos não é, por si só, a extensão devida: ela depende da análise do caminho crítico.",
+    "Cláusulas contratuais devem ser fornecidas ou conferidas pelo jurídico. O prompt é instruído a não inventá-las."
+  ],
+  "validacao_humana": {
+    "papeis_sugeridos": [
+      "Gestor de contratos",
+      "Planejamento",
+      "Jurídico especializado em claims"
+    ],
+    "checklist": [
+      "Conferi os números calculados pelo sistema contra a minha planilha ou fonte de origem.",
+      "Verifiquei se as premissas e os dados ausentes listados fazem sentido para o projeto.",
+      "Nenhum valor, norma ou cláusula citada foi inventado: tudo tem origem no material do projeto ou foi confirmado.",
+      "A análise de atraso foi feita sobre o cronograma contratual e a linha de base atualizada.",
+      "O jurídico revisou a base contratual e o tom da notificação."
+    ]
+  },
+  "casos_de_teste": [
+    {
+      "nome": "COs com valores",
+      "variaveis": {
+        "cos": [
+          {
+            "id": "CO-01",
+            "descricao": "Tubulação Super Duplex linha A",
+            "custo": 12.5,
+            "prazo": 20
+          },
+          {
+            "id": "CO-02",
+            "descricao": "Tubulação Super Duplex linha B",
+            "custo": 8.0,
+            "prazo": 15
+          },
+          {
+            "id": "CO-03",
+            "descricao": "Qualificação de soldadores",
+            "custo": 3.5,
+            "prazo": 10
+          }
+        ]
+      },
+      "esperado": {
+        "total_custo_direto": 24.0,
+        "total_prazo": 45.0,
+        "pct_contrato": 5.33
+      }
+    }
+  ],
+  "versao": "1.0.0",
+  "status": "publicado",
+  "nivel_minimo": 1,
+  "modelo_recomendado": "avancado",
+  "esforco": "high",
+  "saida_tokens_estimados": 7000
+}

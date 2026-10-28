@@ -1,0 +1,133 @@
+{
+  "id": "mineracao.fel3.justificativa-capex-barragem",
+  "titulo": "Justificativa de aumento de CAPEX para o comitê de FID",
+  "setor": "mineracao",
+  "fase": "fel3",
+  "disciplinas": [
+    "financas",
+    "riscos",
+    "governanca"
+  ],
+  "origem": {
+    "tipo": "livro",
+    "referencia": "Capítulo 6, Prompt 6.3"
+  },
+  "resumo": "Elabora o memorando que justifica a revisão de CAPEX da barragem de rejeitos como medida de redução de risco e de conformidade, para o conselho.",
+  "decisao_apoiada": "Aprovação do aumento de CAPEX antes do FID.",
+  "quando_usar": "Em FEL 3, quando uma revisão técnica altera o método construtivo e o CAPEX precisa ser justificado.",
+  "nao_use_para": "Emitir parecer jurídico ou regulatório. A referência normativa deve ser validada por especialistas.",
+  "classificacao_risco_uso": "alto",
+  "o_que_voce_recebe": [
+    "Memorando executivo para o conselho",
+    "Impacto financeiro estruturado",
+    "Análise de risco e conformidade",
+    "Acréscimo de CAPEX calculado por código"
+  ],
+  "variaveis": [
+    {
+      "nome": "metodo_atual",
+      "rotulo": "Método construtivo anterior",
+      "tipo": "texto",
+      "padrao": "a montante",
+      "max_chars": 60
+    },
+    {
+      "nome": "metodo_novo",
+      "rotulo": "Método construtivo recomendado",
+      "tipo": "texto",
+      "padrao": "a jusante",
+      "max_chars": 60
+    },
+    {
+      "nome": "causa",
+      "rotulo": "Origem da mudança",
+      "tipo": "texto",
+      "padrao": "revisão do estudo geotécnico",
+      "max_chars": 200
+    },
+    {
+      "nome": "capex_atual",
+      "rotulo": "CAPEX da barragem (anterior)",
+      "tipo": "moeda",
+      "padrao": 1.4,
+      "unidade": "R$ bilhões",
+      "minimo": 1e-06
+    },
+    {
+      "nome": "capex_novo",
+      "rotulo": "CAPEX da barragem (revisado)",
+      "tipo": "moeda",
+      "padrao": 1.89,
+      "unidade": "R$ bilhões",
+      "minimo": 0
+    },
+    {
+      "nome": "norma",
+      "rotulo": "Referência regulatória a citar",
+      "tipo": "texto",
+      "padrao": "Resolução ANM nº 95/2022",
+      "max_chars": 200,
+      "ajuda": "Cite apenas normas que você confirmou. O prompt não deve extrapolar além delas."
+    }
+  ],
+  "rctif": {
+    "papel": "Atue como um Diretor de Projetos de Capital (CAPEX) especializado no setor de Mineração e com profunda expertise em governança corporativa e normas de segurança de barragens.",
+    "contexto": "Nosso projeto de mineração está na fase FEL 3, prestes a passar pelo portão do FID. A {{causa}} indicou a necessidade de alterar o projeto da barragem de rejeitos do método {{metodo_atual}} para o método {{metodo_novo}}. Essa mudança deve ser tratada como medida de redução de risco e de atendimento aos requisitos aplicáveis, sujeita à validação técnica, documental e regulatória, incluindo a {{norma}}. O CAPEX específico da barragem passa de R$ {{capex_atual}} bilhões para R$ {{capex_novo}} bilhões. Precisamos justificar este aumento para o Conselho de Administração.",
+    "tarefa": "Elabore um Memorando de Justificativa de Variação de CAPEX focado na relação entre custo adicional, mitigação de riscos catastróficos e conformidade regulatória.",
+    "instrucoes": "Estruture a análise de forma verificável. Em cada etapa, diferencie dados fornecidos, premissas, hipóteses e inferências. Declare os dados ausentes que podem alterar a conclusão. Não invente valores, cláusulas, requisitos legais, fontes ou resultados de simulações. Em seguida:\n1. O tom deve ser firme em relação à segurança, justificando o custo não como um estouro de orçamento, mas como investimento em resiliência e conformidade.\n2. Cite a {{norma}} como referência regulatória apresentada pelo usuário, evitando extrapolações jurídicas não comprovadas.\n3. Compare o custo adicional com o risco financeiro, reputacional e humano de um potencial colapso, sem inventar valores de perdas.\n4. Demonstre que a identificação dessa necessidade na fase FEL 3 evidencia a maturidade da engenharia antes da execução.",
+    "formato": "Apresente o documento no formato de Memorando Executivo:\n• PARA: Conselho de Administração / Comitê de FID\n• ASSUNTO: Justificativa de Revisão de CAPEX: Barragem de Rejeitos\n• 1. Contexto e Motivação Técnica.\n• 2. Impacto Financeiro (Valores em R$).\n• 3. Análise de Risco e Conformidade.\n• 4. Recomendação de Aprovação."
+  },
+  "verificacoes": [
+    {
+      "id": "acrescimo",
+      "rotulo": "Acréscimo de CAPEX",
+      "expr": "(capex_novo - capex_atual) * 1000",
+      "unidade": "R$ milhões",
+      "casas": 0,
+      "tolerancia_rel": 0.005
+    },
+    {
+      "id": "acrescimo_pct",
+      "rotulo": "Acréscimo percentual de CAPEX",
+      "expr": "(capex_novo / capex_atual - 1) * 100",
+      "unidade": "%",
+      "casas": 1,
+      "tolerancia_rel": 0.005
+    }
+  ],
+  "avisos": [
+    "O resultado é um rascunho analítico gerado por IA e depende dos dados informados. Valide com o responsável técnico antes de qualquer uso em decisão.",
+    "Normas e resoluções devem ser confirmadas e atualizadas pela área jurídica e regulatória antes de circular.",
+    "O memorando não deve atribuir valores monetários a perdas humanas ou ambientais sem metodologia aprovada."
+  ],
+  "validacao_humana": {
+    "papeis_sugeridos": [
+      "Responsável técnico geotécnico",
+      "Jurídico e regulatório",
+      "Diretor de projetos"
+    ],
+    "checklist": [
+      "Conferi os números calculados pelo sistema contra a minha planilha ou fonte de origem.",
+      "Verifiquei se as premissas e os dados ausentes listados fazem sentido para o projeto.",
+      "Nenhum valor, norma ou cláusula citada foi inventado: tudo tem origem no material do projeto ou foi confirmado.",
+      "A justificativa técnica foi validada pelo responsável geotécnico.",
+      "A referência normativa e sua aplicabilidade foram confirmadas pelo jurídico."
+    ]
+  },
+  "casos_de_teste": [
+    {
+      "nome": "Exemplo do livro",
+      "variaveis": {},
+      "esperado": {
+        "acrescimo": 490.0,
+        "acrescimo_pct": 35.0
+      }
+    }
+  ],
+  "versao": "1.0.0",
+  "status": "publicado",
+  "nivel_minimo": 1,
+  "modelo_recomendado": "avancado",
+  "esforco": "high",
+  "saida_tokens_estimados": 7000
+}

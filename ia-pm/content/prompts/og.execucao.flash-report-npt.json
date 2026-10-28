@@ -1,0 +1,159 @@
+{
+  "id": "og.execucao.flash-report-npt",
+  "titulo": "Flash report de NPT por prisão de coluna (stuck pipe)",
+  "setor": "og",
+  "fase": "execucao",
+  "disciplinas": [
+    "financas",
+    "riscos",
+    "cronograma",
+    "partes_interessadas"
+  ],
+  "origem": {
+    "tipo": "livro",
+    "referencia": "Capítulo 6, Prompt 6.2"
+  },
+  "nivel_minimo": 0,
+  "resumo": "Redige um flash report executivo de um evento de NPT, com impacto financeiro atual e projetado e próximos passos.",
+  "decisao_apoiada": "Qual estratégia seguir (recuperar, pescar ou sidetrack) e que informação levar à diretoria agora.",
+  "quando_usar": "Durante o evento, quando a diretoria exige atualização rápida da situação e do impacto financeiro.",
+  "nao_use_para": "Definir a estratégia operacional de poço. A decisão técnica é da equipe de perfuração.",
+  "classificacao_risco_uso": "medio",
+  "esforco": "medium",
+  "saida_tokens_estimados": 4500,
+  "o_que_voce_recebe": [
+    "Flash report legível em smartphone",
+    "Custo do NPT acumulado e cenários de prolongamento",
+    "Ações em curso e plano A/B",
+    "Custos calculados por código"
+  ],
+  "variaveis": [
+    {
+      "nome": "local",
+      "rotulo": "Tipo de poço",
+      "tipo": "texto",
+      "padrao": "poço exploratório no pré-sal",
+      "max_chars": 100
+    },
+    {
+      "nome": "profundidade",
+      "rotulo": "Profundidade do evento",
+      "tipo": "numero",
+      "padrao": 5200,
+      "unidade": "m",
+      "minimo": 0
+    },
+    {
+      "nome": "evento",
+      "rotulo": "Evento",
+      "tipo": "texto",
+      "padrao": "stuck pipe (prisão de coluna)",
+      "max_chars": 100
+    },
+    {
+      "nome": "horas_npt",
+      "rotulo": "NPT acumulado",
+      "tipo": "numero",
+      "padrao": 72,
+      "unidade": "horas",
+      "minimo": 0
+    },
+    {
+      "nome": "day_rate",
+      "rotulo": "Day rate da sonda",
+      "tipo": "moeda",
+      "padrao": 1750000,
+      "unidade": "R$/dia",
+      "minimo": 0
+    },
+    {
+      "nome": "acoes",
+      "rotulo": "Ações já realizadas",
+      "tipo": "texto_longo",
+      "padrao": "operações de jarring e circulação de pílula lubrificante, sem sucesso até agora",
+      "max_chars": 1500
+    }
+  ],
+  "rctif": {
+    "papel": "Atue como um Gestor de Operações de Perfuração Offshore Sênior, especialista em comunicação de crises e relatórios executivos para alta gestão.",
+    "contexto": "Durante a perfuração de um {{local}}, enfrentamos um evento de {{evento}} a {{profundidade}} metros de profundidade. O evento resultou em {{horas_npt}} horas de Non-Productive Time (NPT) até o momento. A sonda contratada tem um day rate de R$ {{day_rate}} por dia. A equipe a bordo já executou: {{acoes}}. A diretoria exige uma atualização imediata da situação e do impacto financeiro.",
+    "tarefa": "Redija um Flash Report executivo sobre o incidente de NPT, quantificando o impacto financeiro atual e projetado, e estruturando os próximos passos operacionais de mitigação.",
+    "instrucoes": "Estruture a análise de forma verificável. Em cada etapa, diferencie dados fornecidos, premissas, hipóteses e inferências. Declare os dados ausentes que podem alterar a conclusão. Não invente valores, cláusulas, requisitos legais, fontes ou resultados de simulações. Em seguida:\n1. Use o impacto financeiro direto do NPT acumulado calculado pelo sistema (horas ÷ 24 × day rate) e indique que não inclui outros custos (equipamentos perdidos, serviços adicionais, logística).\n2. Mantenha um tom profissional, objetivo e focado em soluções.\n3. Descreva brevemente as ações já tomadas e as opções futuras (por exemplo, sidetrack, pescaria), sem inventar resultados operacionais.\n4. O relatório deve ser direto o suficiente para leitura em smartphone pela diretoria, mas completo em relação aos riscos de custo e prazo.",
+    "formato": "Estruture o Flash Report da seguinte forma:\n• TÍTULO: [Urgente] Flash Report: NPT {{local}}\n• RESUMO DO INCIDENTE: (O que aconteceu, onde e quando).\n• IMPACTO FINANCEIRO: (Cálculo do custo do NPT acumulado em R$).\n• AÇÕES DE MITIGAÇÃO EM CURSO: (O que está sendo feito agora).\n• PRÓXIMOS PASSOS E CENÁRIOS: (Plano A e Plano B)."
+  },
+  "verificacoes": [
+    {
+      "id": "custo_npt",
+      "rotulo": "Custo direto do NPT acumulado",
+      "expr": "horas_npt / 24 * day_rate",
+      "unidade": "R$",
+      "casas": 0,
+      "tolerancia_rel": 0.001
+    },
+    {
+      "id": "custo_hora",
+      "rotulo": "Custo por hora de sonda",
+      "expr": "day_rate / 24",
+      "unidade": "R$",
+      "casas": 0,
+      "tolerancia_rel": 0.001
+    },
+    {
+      "id": "cenario_24h",
+      "rotulo": "Custo acumulado se o NPT durar mais 24 horas",
+      "expr": "(horas_npt + 24) / 24 * day_rate",
+      "unidade": "R$",
+      "casas": 0,
+      "tolerancia_rel": 0.001
+    },
+    {
+      "id": "cenario_72h",
+      "rotulo": "Custo acumulado se o NPT durar mais 72 horas",
+      "expr": "(horas_npt + 72) / 24 * day_rate",
+      "unidade": "R$",
+      "casas": 0,
+      "tolerancia_rel": 0.001
+    },
+    {
+      "id": "cenario_7d",
+      "rotulo": "Custo acumulado se o NPT durar mais 7 dias",
+      "expr": "(horas_npt + 168) / 24 * day_rate",
+      "unidade": "R$",
+      "casas": 0,
+      "tolerancia_rel": 0.001
+    }
+  ],
+  "avisos": [
+    "O resultado é um rascunho analítico gerado por IA e depende dos dados informados. Valide com o responsável técnico antes de qualquer uso em decisão.",
+    "O custo calculado considera apenas o day rate da sonda. Outros custos do evento devem ser somados pela equipe de custos.",
+    "Comunicação de crise exige aprovação do responsável antes de circular."
+  ],
+  "validacao_humana": {
+    "papeis_sugeridos": [
+      "Gerente de operações de perfuração",
+      "Engenheiro de poço",
+      "Controle de custos"
+    ],
+    "checklist": [
+      "Conferi os números calculados pelo sistema contra a minha planilha ou fonte de origem.",
+      "Verifiquei se as premissas e os dados ausentes listados fazem sentido para o projeto.",
+      "Nenhum valor, norma ou cláusula citada foi inventado: tudo tem origem no material do projeto ou foi confirmado.",
+      "As ações e os cenários descritos foram confirmados pela equipe de perfuração.",
+      "O texto foi aprovado pelo responsável antes de ir à diretoria."
+    ]
+  },
+  "casos_de_teste": [
+    {
+      "nome": "Exemplo do livro",
+      "variaveis": {},
+      "esperado": {
+        "custo_npt": 5250000.0,
+        "cenario_24h": 7000000.0,
+        "custo_hora": 72916.67
+      }
+    }
+  ],
+  "versao": "1.0.0",
+  "status": "publicado",
+  "modelo_recomendado": "avancado"
+}

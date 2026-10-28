@@ -1,0 +1,198 @@
+{
+  "id": "mineracao.fel1.triagem-portfolio",
+  "titulo": "Triagem multicritério de portfólio",
+  "setor": "mineracao",
+  "fase": "fel1",
+  "disciplinas": [
+    "governanca",
+    "financas",
+    "riscos"
+  ],
+  "origem": {
+    "tipo": "livro",
+    "referencia": "Capítulo 5, Prompt 5.1"
+  },
+  "nivel_minimo": 0,
+  "resumo": "Compara projetos candidatos de um ciclo de investimento, pontua riscos não financeiros e recomenda a priorização do portfólio.",
+  "decisao_apoiada": "Quais projetos entram no portfólio do ciclo e em que ordem, antes de qualquer estudo detalhado.",
+  "quando_usar": "Quando várias oportunidades disputam o mesmo orçamento e o comitê precisa de uma comparação rápida e estruturada.",
+  "nao_use_para": "Aprovar investimento. A triagem orienta estudos posteriores e não substitui análise de fluxo de caixa.",
+  "classificacao_risco_uso": "medio",
+  "esforco": "medium",
+  "o_que_voce_recebe": [
+    "Tabela comparativa com 8 critérios",
+    "Matriz Valor vs. Risco 2x2",
+    "Recomendação executiva em até 200 palavras",
+    "Totais do portfólio calculados por código"
+  ],
+  "variaveis": [
+    {
+      "nome": "orcamento_anual",
+      "rotulo": "CAPEX anual da empresa",
+      "tipo": "moeda",
+      "padrao": 500,
+      "unidade": "R$ milhões",
+      "ajuda": "Orçamento anual de capital disponível para o ciclo.",
+      "minimo": 0
+    },
+    {
+      "nome": "anos",
+      "rotulo": "Anos do ciclo de investimento",
+      "tipo": "numero",
+      "padrao": 5,
+      "unidade": "anos",
+      "minimo": 1,
+      "maximo": 30
+    },
+    {
+      "nome": "ciclo",
+      "rotulo": "Ciclo de investimento",
+      "tipo": "texto",
+      "padrao": "2026 a 2030",
+      "max_chars": 60
+    },
+    {
+      "nome": "wacc",
+      "rotulo": "WACC de referência",
+      "tipo": "percentual",
+      "padrao": 12,
+      "unidade": "% a.a.",
+      "minimo": 0,
+      "maximo": 100,
+      "ajuda": "Usado apenas se você informar fluxos de caixa."
+    },
+    {
+      "nome": "projetos",
+      "rotulo": "Projetos candidatos",
+      "tipo": "tabela",
+      "padrao": [
+        {
+          "nome": "Projeto A: Nova mina de ferro, Pará (Brasil)",
+          "capex": 1200,
+          "tir": 18,
+          "risco": "Regulatório alto (licença ambiental pendente)"
+        },
+        {
+          "nome": "Projeto B: Ampliação de planta de beneficiamento, MG (Brasil)",
+          "capex": 380,
+          "tir": 22,
+          "risco": "Baixo (brownfield)"
+        },
+        {
+          "nome": "Projeto C: Aquisição de jazida de cobre, Chile",
+          "capex": 850,
+          "tir": 15,
+          "risco": "Geopolítico médio"
+        }
+      ],
+      "min_linhas": 2,
+      "max_linhas": 12,
+      "ajuda": "Um projeto por linha. TIR e CAPEX são os valores preliminares do estudo atual.",
+      "colunas": [
+        {
+          "nome": "nome",
+          "rotulo": "Projeto",
+          "tipo": "texto"
+        },
+        {
+          "nome": "capex",
+          "rotulo": "CAPEX estimado (R$ milhões)",
+          "tipo": "moeda",
+          "rotulo_curto": "CAPEX estimado",
+          "prefixo": "R$ ",
+          "sufixo": " milhões",
+          "minimo": 0
+        },
+        {
+          "nome": "tir",
+          "rotulo": "TIR projetada (%)",
+          "tipo": "percentual",
+          "rotulo_curto": "TIR projetada",
+          "sufixo": "%",
+          "minimo": -100,
+          "maximo": 1000
+        },
+        {
+          "nome": "risco",
+          "rotulo": "Risco principal",
+          "tipo": "texto",
+          "rotulo_curto": "Risco"
+        }
+      ]
+    }
+  ],
+  "rctif": {
+    "papel": "Atue como um Analista de Portfólio de Investimentos Sênior especializado em projetos de capital do setor de mineração, com expertise em análise multicritério e gestão de riscos de capital.",
+    "contexto": "Uma empresa de mineração (CAPEX anual de R$ {{orcamento_anual}} milhões) está avaliando os projetos abaixo para o ciclo de investimento {{ciclo}}:\n\n{{projetos}}",
+    "tarefa": "Realize uma análise multicritério comparativa dos projetos e recomende a priorização para o portfólio {{ciclo}}.",
+    "instrucoes": "Estruture a análise de forma verificável. Em cada etapa, diferencie dados fornecidos, premissas, hipóteses e inferências. Declare os dados ausentes que podem alterar a conclusão. Não invente valores, cláusulas, requisitos legais, fontes ou resultados de simulações. Em seguida:\n1. Calcule o Índice de Rentabilidade (IR) de cada projeto assumindo WACC de {{wacc}}%, somente se houver fluxos de caixa informados; caso contrário, liste os dados necessários.\n2. Avalie os riscos não financeiros (regulatório, geopolítico, técnico, ambiental) em escala de 1 a 5.\n3. Aplique a matriz de priorização de portfólio (Valor vs. Risco).\n4. Identifique as dependências e sinergias entre os projetos.\n5. Formule a recomendação final com justificativa.",
+    "formato": "Apresente: (1) Tabela comparativa com 8 critérios, (2) Matriz Valor vs. Risco 2x2, (3) Recomendação executiva em até 200 palavras."
+  },
+  "verificacoes": [
+    {
+      "id": "capex_total",
+      "rotulo": "CAPEX total dos projetos candidatos",
+      "expr": "soma(projetos.capex)",
+      "unidade": "R$ milhões",
+      "casas": 1,
+      "tolerancia_rel": 0.005
+    },
+    {
+      "id": "envelope",
+      "rotulo": "Orçamento de capital do ciclo (CAPEX anual × anos)",
+      "expr": "orcamento_anual * anos",
+      "unidade": "R$ milhões",
+      "casas": 1,
+      "tolerancia_rel": 0.005
+    },
+    {
+      "id": "uso_envelope",
+      "rotulo": "Participação do CAPEX candidato no orçamento do ciclo",
+      "expr": "soma(projetos.capex) / (orcamento_anual * anos) * 100",
+      "unidade": "%",
+      "casas": 1,
+      "tolerancia_rel": 0.005
+    },
+    {
+      "id": "tir_ponderada",
+      "rotulo": "TIR média ponderada pelo CAPEX",
+      "expr": "ponderada(projetos.tir, projetos.capex)",
+      "unidade": "%",
+      "casas": 1,
+      "tolerancia_rel": 0.005,
+      "nota": "média aritmética ponderada; não substitui análise de fluxo de caixa"
+    }
+  ],
+  "avisos": [
+    "O resultado é um rascunho analítico gerado por IA e depende dos dados informados. Valide com o responsável técnico antes de qualquer uso em decisão.",
+    "A TIR informada é preliminar e não considera o efeito de escala nem a correlação entre projetos.",
+    "O IR só pode ser calculado com fluxos de caixa. Sem eles, a análise deve listar os dados necessários."
+  ],
+  "validacao_humana": {
+    "papeis_sugeridos": [
+      "Analista de portfólio",
+      "Gerente de planejamento de capital"
+    ],
+    "checklist": [
+      "Conferi os números calculados pelo sistema contra a minha planilha ou fonte de origem.",
+      "Verifiquei se as premissas e os dados ausentes listados fazem sentido para o projeto.",
+      "Nenhum valor, norma ou cláusula citada foi inventado: tudo tem origem no material do projeto ou foi confirmado.",
+      "Os critérios e pesos aplicados refletem a política de investimento da empresa."
+    ]
+  },
+  "casos_de_teste": [
+    {
+      "nome": "Exemplo do livro",
+      "variaveis": {},
+      "esperado": {
+        "capex_total": 2430.0,
+        "envelope": 2500.0,
+        "uso_envelope": 97.2
+      }
+    }
+  ],
+  "versao": "1.0.0",
+  "status": "publicado",
+  "modelo_recomendado": "avancado",
+  "saida_tokens_estimados": 7000
+}

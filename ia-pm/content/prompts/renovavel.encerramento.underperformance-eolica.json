@@ -1,0 +1,155 @@
+{
+  "id": "renovavel.encerramento.underperformance-eolica",
+  "titulo": "Diagnóstico de underperformance de parque eólico",
+  "setor": "renovavel",
+  "fase": "encerramento",
+  "disciplinas": [
+    "financas",
+    "riscos",
+    "governanca",
+    "partes_interessadas"
+  ],
+  "origem": {
+    "tipo": "livro",
+    "referencia": "Capítulo 6, Prompt 6.5"
+  },
+  "resumo": "Estrutura o relatório de diagnóstico de geração abaixo do P50, separando recurso, disponibilidade e rede, sem antecipar culpados.",
+  "decisao_apoiada": "Como comunicar o desvio a investidores e financiadores e que investigação abrir nos próximos 90 dias.",
+  "quando_usar": "Após o primeiro ano de operação, quando a geração real ficou abaixo da projeção P50.",
+  "nao_use_para": "Atribuir responsabilidade ao fabricante, ao operador de O&M ou ao operador da rede antes da conclusão da análise técnica.",
+  "classificacao_risco_uso": "alto",
+  "o_que_voce_recebe": [
+    "Resumo executivo real vs. P50",
+    "Árvore de hipóteses (recurso, equipamento, rede)",
+    "Plano de ação para 90 dias",
+    "Pontos-chave para investidores",
+    "Desvio e fator de capacidade calculados por código"
+  ],
+  "variaveis": [
+    {
+      "nome": "potencia_mw",
+      "rotulo": "Potência instalada",
+      "tipo": "numero",
+      "padrao": 150,
+      "unidade": "MW",
+      "minimo": 0.1
+    },
+    {
+      "nome": "capex",
+      "rotulo": "CAPEX total",
+      "tipo": "moeda",
+      "padrao": 900,
+      "unidade": "R$ milhões",
+      "minimo": 0
+    },
+    {
+      "nome": "geracao_real",
+      "rotulo": "Geração real acumulada (12 meses)",
+      "tipo": "moeda",
+      "padrao": 420,
+      "unidade": "GWh",
+      "minimo": 0
+    },
+    {
+      "nome": "p50",
+      "rotulo": "Geração P50 do estudo de recurso",
+      "tipo": "moeda",
+      "padrao": 498,
+      "unidade": "GWh",
+      "minimo": 1e-06
+    },
+    {
+      "nome": "destinatarios",
+      "rotulo": "Destinatários do relatório",
+      "tipo": "texto",
+      "padrao": "investidores e banco financiador",
+      "max_chars": 120
+    }
+  ],
+  "rctif": {
+    "papel": "Atue como um Gestor de Ativos de Energia Renovável e Engenheiro Especialista em Performance de Parques Eólicos, com experiência em reporte para bancos de fomento e investidores institucionais.",
+    "contexto": "Nosso parque eólico onshore de {{potencia_mw}} MW (CAPEX de R$ {{capex}} milhões) completou seu primeiro ano de operação comercial. O projeto apresenta underperformance: a geração real foi de {{geracao_real}} GWh, abaixo da projeção P50 de {{p50}} GWh do estudo de ventos original. Precisamos apresentar um relatório diagnóstico para {{destinatarios}}, explicando as causas prováveis e as medidas corretivas.",
+    "tarefa": "Elabore um relatório executivo de diagnóstico de underperformance, separando claramente as causas relacionadas ao recurso natural (ventos abaixo da média) das causas relacionadas à disponibilidade dos equipamentos (falhas, manutenções).",
+    "instrucoes": "Estruture a análise de forma verificável. Em cada etapa, diferencie dados fornecidos, premissas, hipóteses e inferências. Declare os dados ausentes que podem alterar a conclusão. Não invente valores, cláusulas, requisitos legais, fontes ou resultados de simulações. Em seguida:\n1. Diferencie claramente a variação de recurso (risco natural) da disponibilidade eletromecânica (risco do fabricante ou da O&M).\n2. Aborde a possibilidade de perdas por curtailment (restrição de rede) ou de efeito esteira subestimado no modelo original.\n3. O tom deve ser analítico e transparente, evitando apontar culpados antes da investigação profunda, mas demonstrando controle da situação.\n4. Proponha 3 ações corretivas imediatas para investigar e recuperar a performance, indicando os dados necessários (SCADA, O&M, medições meteorológicas, eventos de curtailment).",
+    "formato": "Estruture o relatório em:\n1. Resumo Executivo da Performance (Real vs. P50).\n2. Árvore de Hipóteses para o Desvio (Recurso vs. Equipamento vs. Rede).\n3. Plano de Ação e Investigação (Próximos 90 dias).\n4. Comunicação aos Investidores (Pontos-chave a serem destacados na próxima reunião de conselho)."
+  },
+  "verificacoes": [
+    {
+      "id": "gap_gwh",
+      "rotulo": "Desvio de geração (P50 − real)",
+      "expr": "p50 - geracao_real",
+      "unidade": "GWh",
+      "casas": 1,
+      "tolerancia_rel": 0.005
+    },
+    {
+      "id": "gap_pct",
+      "rotulo": "Desvio percentual em relação ao P50",
+      "expr": "(p50 - geracao_real) / p50 * 100",
+      "unidade": "%",
+      "casas": 1,
+      "tolerancia_rel": 0.005
+    },
+    {
+      "id": "fc_real",
+      "rotulo": "Fator de capacidade real",
+      "expr": "geracao_real * 1000 / (potencia_mw * 8760) * 100",
+      "unidade": "%",
+      "casas": 1,
+      "tolerancia_rel": 0.005
+    },
+    {
+      "id": "fc_p50",
+      "rotulo": "Fator de capacidade do P50",
+      "expr": "p50 * 1000 / (potencia_mw * 8760) * 100",
+      "unidade": "%",
+      "casas": 1,
+      "tolerancia_rel": 0.005
+    },
+    {
+      "id": "capex_por_mw",
+      "rotulo": "CAPEX por MW instalado",
+      "expr": "capex / potencia_mw",
+      "unidade": "R$ milhões/MW",
+      "casas": 2,
+      "tolerancia_rel": 0.005
+    }
+  ],
+  "avisos": [
+    "O resultado é um rascunho analítico gerado por IA e depende dos dados informados. Valide com o responsável técnico antes de qualquer uso em decisão.",
+    "O fator de capacidade usa 8.760 horas por ano. Ajuste a leitura se o período não for de 12 meses completos.",
+    "Não apresente causas como conclusão: o relatório deve tratá-las como hipóteses até a análise técnica."
+  ],
+  "validacao_humana": {
+    "papeis_sugeridos": [
+      "Gestor de ativos",
+      "Engenheiro de performance",
+      "Relações com investidores"
+    ],
+    "checklist": [
+      "Conferi os números calculados pelo sistema contra a minha planilha ou fonte de origem.",
+      "Verifiquei se as premissas e os dados ausentes listados fazem sentido para o projeto.",
+      "Nenhum valor, norma ou cláusula citada foi inventado: tudo tem origem no material do projeto ou foi confirmado.",
+      "As hipóteses não atribuem culpa antes da análise técnica.",
+      "A comunicação aos investidores foi aprovada pela área responsável."
+    ]
+  },
+  "casos_de_teste": [
+    {
+      "nome": "Exemplo do livro",
+      "variaveis": {},
+      "esperado": {
+        "gap_gwh": 78.0,
+        "gap_pct": 15.7,
+        "fc_real": 32.0,
+        "fc_p50": 37.9
+      }
+    }
+  ],
+  "versao": "1.0.0",
+  "status": "publicado",
+  "nivel_minimo": 1,
+  "modelo_recomendado": "avancado",
+  "esforco": "high",
+  "saida_tokens_estimados": 7000
+}

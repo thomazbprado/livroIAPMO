@@ -1,0 +1,189 @@
+{
+  "id": "mineracao.fid.revisao-matriz-riscos",
+  "titulo": "Revisão da matriz de riscos para o comitê de FID",
+  "setor": "mineracao",
+  "fase": "fid",
+  "disciplinas": [
+    "riscos",
+    "governanca",
+    "financas"
+  ],
+  "origem": {
+    "tipo": "livro",
+    "referencia": "Capítulo 5, Prompt 5.3"
+  },
+  "resumo": "Revisa criticamente os principais riscos antes do FID: adequação das respostas, riscos secundários, abordagem de contingência e indicadores de alerta.",
+  "decisao_apoiada": "Se a matriz de riscos e as respostas planejadas sustentam a decisão final de investimento.",
+  "quando_usar": "Nas semanas anteriores ao comitê de FID, com a matriz de riscos já consolidada.",
+  "nao_use_para": "Calcular a reserva de contingência final. O prompt propõe a abordagem e os dados necessários, sem inventar distribuições.",
+  "classificacao_risco_uso": "alto",
+  "o_que_voce_recebe": [
+    "Sumário executivo de 1 página",
+    "Tabela de riscos revisada com avaliação do plano e indicadores de alerta",
+    "Abordagem de contingência (Monte Carlo simplificado) e dados necessários",
+    "Score P × I calculado por código"
+  ],
+  "variaveis": [
+    {
+      "nome": "capex_projeto",
+      "rotulo": "CAPEX do projeto",
+      "tipo": "texto",
+      "padrao": "US$ 1,2 bilhão",
+      "max_chars": 60
+    },
+    {
+      "nome": "prazo_meses",
+      "rotulo": "Prazo do projeto",
+      "tipo": "numero",
+      "padrao": 60,
+      "unidade": "meses",
+      "minimo": 1
+    },
+    {
+      "nome": "total_riscos",
+      "rotulo": "Total de riscos na matriz atual",
+      "tipo": "numero",
+      "padrao": 45,
+      "minimo": 1
+    },
+    {
+      "nome": "riscos",
+      "rotulo": "Riscos de maior pontuação",
+      "tipo": "tabela",
+      "padrao": [
+        {
+          "id": "R01",
+          "descricao": "Atraso no licenciamento ambiental",
+          "p": 4,
+          "i": 5,
+          "plano": "Monitoramento"
+        },
+        {
+          "id": "R02",
+          "descricao": "Variação cambial USD/BRL maior que 15%",
+          "p": 3,
+          "i": 4,
+          "plano": "Hedge parcial (50%)"
+        },
+        {
+          "id": "R03",
+          "descricao": "Greve de trabalhadores na fase de escavação",
+          "p": 3,
+          "i": 3,
+          "plano": "Acordo coletivo preventivo"
+        },
+        {
+          "id": "R04",
+          "descricao": "Descoberta de sítio arqueológico na área de lavra",
+          "p": 2,
+          "i": 5,
+          "plano": "Monitoramento"
+        },
+        {
+          "id": "R05",
+          "descricao": "Aumento de 20% no preço do aço estrutural",
+          "p": 4,
+          "i": 3,
+          "plano": "Contrato de fornecimento fixo"
+        }
+      ],
+      "min_linhas": 1,
+      "max_linhas": 15,
+      "colunas": [
+        {
+          "nome": "id",
+          "rotulo": "Código",
+          "tipo": "texto"
+        },
+        {
+          "nome": "descricao",
+          "rotulo": "Risco",
+          "tipo": "texto",
+          "sem_rotulo": true
+        },
+        {
+          "nome": "p",
+          "rotulo": "Probabilidade (1 a 5)",
+          "tipo": "numero",
+          "rotulo_curto": "P",
+          "minimo": 1,
+          "maximo": 5
+        },
+        {
+          "nome": "i",
+          "rotulo": "Impacto (1 a 5)",
+          "tipo": "numero",
+          "rotulo_curto": "I",
+          "minimo": 1,
+          "maximo": 5
+        },
+        {
+          "nome": "plano",
+          "rotulo": "Plano de resposta atual",
+          "tipo": "texto",
+          "rotulo_curto": "plano de resposta"
+        }
+      ]
+    }
+  ],
+  "rctif": {
+    "papel": "Atue como um Gerente de Riscos Sênior de projetos CAPEX, especializado em preparação de documentação para Decisão Final de Investimento (FID) em projetos de mineração.",
+    "contexto": "Projeto de mina (CAPEX: {{capex_projeto}}, prazo: {{prazo_meses}} meses). A matriz de riscos atual lista {{total_riscos}} riscos identificados. Os de maior pontuação (Probabilidade x Impacto) são:\n\n{{riscos}}",
+    "tarefa": "Revise criticamente a matriz de riscos e prepare um sumário executivo de riscos para o comitê FID.",
+    "instrucoes": "Estruture a análise de forma verificável. Em cada etapa, diferencie dados fornecidos, premissas, hipóteses e inferências. Declare os dados ausentes que podem alterar a conclusão. Não invente valores, cláusulas, requisitos legais, fontes ou resultados de simulações. Em seguida:\n1. Avalie se os planos de resposta são adequados para cada risco (aceitar, mitigar, transferir, evitar).\n2. Identifique riscos secundários que podem emergir dos planos de resposta.\n3. Proponha a abordagem de cálculo da Reserva de Contingência (Monte Carlo simplificado), indicando os dados quantitativos necessários e sem inventar distribuições.\n4. Identifique os 2 ou 3 riscos que, se materializados, poderiam inviabilizar o FID.\n5. Proponha indicadores de alerta antecipado (early warning indicators) para os principais riscos.",
+    "formato": "Sumário executivo de 1 página + tabela de riscos revisada com colunas: Risco | Categoria | P | I | Score | Plano Atual | Avaliação | Plano Recomendado | EWI."
+  },
+  "verificacoes": [
+    {
+      "id": "score",
+      "rotulo": "Score (P × I)",
+      "por_linha": {
+        "tabela": "riscos",
+        "chave": "id",
+        "expr": "p * i"
+      },
+      "expr": "",
+      "unidade": "pontos",
+      "casas": 0,
+      "tolerancia_rel": 0.001
+    }
+  ],
+  "avisos": [
+    "O resultado é um rascunho analítico gerado por IA e depende dos dados informados. Valide com o responsável técnico antes de qualquer uso em decisão.",
+    "O prompt não calcula a reserva de contingência: ele propõe a abordagem e os dados necessários.",
+    "Planos classificados apenas como \"Monitoramento\" costumam ser aceitação passiva. Confirme se é a intenção."
+  ],
+  "validacao_humana": {
+    "papeis_sugeridos": [
+      "Gerente de riscos",
+      "Gerente do projeto",
+      "Representante do comitê de FID"
+    ],
+    "checklist": [
+      "Conferi os números calculados pelo sistema contra a minha planilha ou fonte de origem.",
+      "Verifiquei se as premissas e os dados ausentes listados fazem sentido para o projeto.",
+      "Nenhum valor, norma ou cláusula citada foi inventado: tudo tem origem no material do projeto ou foi confirmado.",
+      "Os riscos que podem inviabilizar o FID foram discutidos com o gerente do projeto.",
+      "Os indicadores de alerta têm responsável e frequência definidos."
+    ]
+  },
+  "casos_de_teste": [
+    {
+      "nome": "Exemplo do livro",
+      "variaveis": {},
+      "esperado": {
+        "score_R01": 20.0,
+        "score_R02": 12.0,
+        "score_R03": 9.0,
+        "score_R04": 10.0,
+        "score_R05": 12.0
+      }
+    }
+  ],
+  "versao": "1.0.0",
+  "status": "publicado",
+  "nivel_minimo": 1,
+  "modelo_recomendado": "avancado",
+  "esforco": "high",
+  "saida_tokens_estimados": 7000
+}

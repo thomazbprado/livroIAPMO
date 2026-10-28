@@ -1,0 +1,32 @@
+{
+  "servicos": [
+    {"id": "pmo-servico", "titulo": "PMO como serviço para projetos de capital", "icone": "pmo",
+     "resumo": "Escritório de projetos terceirizado ou híbrido, com controle de cronograma, custos (EVM), riscos e relatórios de governança para comitês e financiadores.",
+     "para_quem": "Áreas de projetos de grandes empresas, EPCs e donos de ativos sem PMO estruturado.",
+     "entregaveis": ["Modelo de governança e gates (FEL/FID)", "Painel de controle e relatórios periódicos", "Gestão de riscos e de mudanças", "Apoio a comitês e financiadores"]},
+    {"id": "implantacao-ia", "titulo": "Implantação de IA no PMO", "icone": "ia",
+     "resumo": "Programa para pôr a IA em uso com governança: diagnóstico, política de uso, catálogo de prompts do seu setor, treinamento e medição de resultados.",
+     "para_quem": "PMOs e diretorias de projetos que querem sair do uso informal para o uso controlado.",
+     "entregaveis": ["Diagnóstico de usos e riscos", "Política de classificação de dados e de validação humana", "Catálogo de prompts por setor, fase e disciplina", "Plano de treinamento e indicadores"]},
+    {"id": "revisao-independente", "titulo": "Revisão independente de premissas, estimativas e riscos", "icone": "revisao",
+     "resumo": "Revisão por especialista, apoiada por IA, de estimativas de CAPEX, cronogramas e matrizes de risco antes de um gate ou do FID.",
+     "para_quem": "Comitês de investimento, financiadores e gestores que precisam de uma segunda leitura.",
+     "entregaveis": ["Parecer de revisão com achados priorizados", "Teste de premissas e sensibilidades", "Recomendações para o gate"]},
+    {"id": "prompts-sob-medida", "titulo": "Biblioteca de prompts sob medida", "icone": "biblioteca",
+     "resumo": "Prompts no formato RCTIF adaptados ao vocabulário, às normas internas e aos modelos de relatório da sua empresa, com testes de qualidade.",
+     "para_quem": "Empresas com padrões próprios de documentação e governança.",
+     "entregaveis": ["Prompts versionados com variáveis e verificações numéricas", "Casos de teste de referência", "Guia de uso e de validação humana"]},
+    {"id": "treinamento", "titulo": "Treinamento in-company em engenharia de prompt (RCTIF)", "icone": "treinamento",
+     "resumo": "Oficina prática para gestores de projetos de capital, com os casos do livro e os dados reais (anonimizados) da sua empresa.",
+     "para_quem": "Equipes de projetos, PMOs e áreas de planejamento.",
+     "entregaveis": ["Oficina com casos práticos", "Material de apoio", "Acesso Leitor para a turma durante o programa"]},
+    {"id": "auditoria-ia", "titulo": "Auditoria e governança de uso de IA em projetos", "icone": "auditoria",
+     "resumo": "Avaliação do uso de IA nos seus projetos à luz do Registro de Auditoria de IA, da LGPD e das boas práticas, com plano de adequação.",
+     "para_quem": "Compliance, auditoria interna e diretorias de projetos.",
+     "entregaveis": ["Mapa de usos e classificação de risco", "Modelo de Registro de Auditoria de IA", "Plano de adequação"]},
+    {"id": "integracao-api", "titulo": "Integração via API com suas ferramentas", "icone": "api",
+     "resumo": "Conexão do IA PM ao Excel, ao Power BI, ao Teams ou ao seu ERP, para executar prompts a partir dos dados do projeto.",
+     "para_quem": "Áreas de TI e de controle de projetos.",
+     "entregaveis": ["Conectores e exemplos de uso da API", "Fluxos de validação e de registro", "Documentação operacional"]}
+  ]
+}

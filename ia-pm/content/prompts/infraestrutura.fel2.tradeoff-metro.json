@@ -1,0 +1,232 @@
+{
+  "id": "infraestrutura.fel2.tradeoff-metro",
+  "titulo": "Análise de trade-off entre alternativas de traçado (optioneering)",
+  "setor": "infraestrutura",
+  "fase": "fel2",
+  "disciplinas": [
+    "escopo",
+    "cronograma",
+    "financas",
+    "partes_interessadas",
+    "riscos"
+  ],
+  "origem": {
+    "tipo": "livro",
+    "referencia": "Capítulo 5, Prompt 5.2"
+  },
+  "resumo": "Compara alternativas de traçado ou tecnologia com custo unitário, impactos socioambientais, riscos de construção, licenciamento e sensibilidade de CAPEX.",
+  "decisao_apoiada": "Qual alternativa recomendar ao comitê técnico e ao financiador na passagem do FEL 2 para o FEL 3.",
+  "quando_usar": "Quando duas ou mais alternativas viáveis precisam ser comparadas com critérios ponderados.",
+  "nao_use_para": "Substituir estudos de engenharia, de demanda ou de impacto ambiental.",
+  "classificacao_risco_uso": "alto",
+  "o_que_voce_recebe": [
+    "Tabela de trade-off com 10 critérios ponderados",
+    "Análise de sensibilidade de ±20% no CAPEX",
+    "Recomendação técnica fundamentada",
+    "Custo por km e por estação calculado por código"
+  ],
+  "variaveis": [
+    {
+      "nome": "cidade",
+      "rotulo": "Cidade ou região",
+      "tipo": "texto",
+      "padrao": "São Paulo",
+      "max_chars": 80
+    },
+    {
+      "nome": "extensao_km",
+      "rotulo": "Extensão da extensão de linha",
+      "tipo": "numero",
+      "padrao": 8.5,
+      "unidade": "km",
+      "minimo": 0.1
+    },
+    {
+      "nome": "estacoes",
+      "rotulo": "Número de estações",
+      "tipo": "numero",
+      "padrao": 6,
+      "unidade": "estações",
+      "minimo": 1
+    },
+    {
+      "nome": "financiador",
+      "rotulo": "Financiador ou agente de crédito",
+      "tipo": "texto",
+      "padrao": "BNDES",
+      "max_chars": 80
+    },
+    {
+      "nome": "opcoes",
+      "rotulo": "Alternativas em avaliação",
+      "tipo": "tabela",
+      "padrao": [
+        {
+          "id": "Opção A",
+          "descricao": "Traçado subterrâneo (cut-and-cover)",
+          "capex": 4.2,
+          "prazo": 72,
+          "desapropriacoes": "Alto (320 imóveis)",
+          "outros": ""
+        },
+        {
+          "id": "Opção B",
+          "descricao": "Traçado elevado (viaduto de concreto)",
+          "capex": 2.8,
+          "prazo": 54,
+          "desapropriacoes": "Baixo (45 imóveis)",
+          "outros": "Impacto visual e acústico alto"
+        }
+      ],
+      "min_linhas": 2,
+      "max_linhas": 4,
+      "colunas": [
+        {
+          "nome": "id",
+          "rotulo": "Alternativa",
+          "tipo": "texto"
+        },
+        {
+          "nome": "descricao",
+          "rotulo": "Descrição",
+          "tipo": "texto",
+          "sem_rotulo": true
+        },
+        {
+          "nome": "capex",
+          "rotulo": "CAPEX (R$ bilhões)",
+          "tipo": "moeda",
+          "rotulo_curto": "CAPEX",
+          "prefixo": "R$ ",
+          "sufixo": " bilhões",
+          "minimo": 0
+        },
+        {
+          "nome": "prazo",
+          "rotulo": "Prazo (meses)",
+          "tipo": "numero",
+          "rotulo_curto": "prazo",
+          "sufixo": " meses",
+          "minimo": 1
+        },
+        {
+          "nome": "desapropriacoes",
+          "rotulo": "Desapropriações",
+          "tipo": "texto",
+          "rotulo_curto": "impacto em desapropriações"
+        },
+        {
+          "nome": "outros",
+          "rotulo": "Outros impactos",
+          "tipo": "texto",
+          "obrigatoria": false,
+          "rotulo_curto": "outros impactos"
+        }
+      ]
+    }
+  ],
+  "rctif": {
+    "papel": "Atue como um Engenheiro de Projetos Sênior especializado em infraestrutura de transporte urbano, com experiência em análise de opções (optioneering) e preparação de estudos de viabilidade para financiamento pelo {{financiador}}.",
+    "contexto": "Projeto de extensão de linha de metrô em {{cidade}} ({{extensao_km}} km, {{estacoes}} estações). Alternativas em avaliação:\n\n{{opcoes}}",
+    "tarefa": "Elabore uma análise de trade-off completa entre as alternativas para subsidiar a decisão do comitê técnico e a submissão ao {{financiador}}.",
+    "instrucoes": "Estruture a análise de forma verificável. Em cada etapa, diferencie dados fornecidos, premissas, hipóteses e inferências. Declare os dados ausentes que podem alterar a conclusão. Não invente valores, cláusulas, requisitos legais, fontes ou resultados de simulações. Em seguida:\n1. Calcule o custo por km e por estação de cada alternativa.\n2. Avalie impactos socioambientais (desapropriações, ruído, vibração, patrimônio histórico).\n3. Analise os riscos de construção específicos de cada método (por exemplo, rebaixamento de lençol freático e interferências subterrâneas em traçado subterrâneo; ventos e cargas dinâmicas em viaduto).\n4. Estime o impacto no cronograma de licenciamento ambiental de cada alternativa.\n5. Avalie a percepção de valor pela comunidade e pelo poder concedente.",
+    "formato": "Tabela de trade-off com 10 critérios ponderados, análise de sensibilidade (±20% no CAPEX) e recomendação técnica fundamentada."
+  },
+  "verificacoes": [
+    {
+      "id": "custo_km",
+      "rotulo": "Custo por km",
+      "por_linha": {
+        "tabela": "opcoes",
+        "chave": "id",
+        "expr": "capex * 1000 / extensao_km"
+      },
+      "expr": "",
+      "unidade": "R$ milhões/km",
+      "casas": 1,
+      "tolerancia_rel": 0.005
+    },
+    {
+      "id": "custo_estacao",
+      "rotulo": "Custo por estação",
+      "por_linha": {
+        "tabela": "opcoes",
+        "chave": "id",
+        "expr": "capex * 1000 / estacoes"
+      },
+      "expr": "",
+      "unidade": "R$ milhões/estação",
+      "casas": 1,
+      "tolerancia_rel": 0.005
+    },
+    {
+      "id": "capex_mais20",
+      "rotulo": "CAPEX com +20%",
+      "por_linha": {
+        "tabela": "opcoes",
+        "chave": "id",
+        "expr": "capex * 1.2"
+      },
+      "expr": "",
+      "unidade": "R$ bilhões",
+      "casas": 2,
+      "tolerancia_rel": 0.005
+    },
+    {
+      "id": "capex_menos20",
+      "rotulo": "CAPEX com -20%",
+      "por_linha": {
+        "tabela": "opcoes",
+        "chave": "id",
+        "expr": "capex * 0.8"
+      },
+      "expr": "",
+      "unidade": "R$ bilhões",
+      "casas": 2,
+      "tolerancia_rel": 0.005
+    },
+    {
+      "id": "dif_capex",
+      "rotulo": "Diferença entre o maior e o menor CAPEX",
+      "expr": "max(opcoes.capex) - min(opcoes.capex)",
+      "unidade": "R$ bilhões",
+      "casas": 2,
+      "tolerancia_rel": 0.005
+    }
+  ],
+  "avisos": [
+    "O resultado é um rascunho analítico gerado por IA e depende dos dados informados. Valide com o responsável técnico antes de qualquer uso em decisão.",
+    "A comparação depende de critérios e pesos que devem ser validados pelo comitê, não pela IA.",
+    "Impactos de licenciamento e de desapropriação devem ser confirmados com o órgão e com o cadastro fundiário."
+  ],
+  "validacao_humana": {
+    "papeis_sugeridos": [
+      "Engenheiro de projetos",
+      "Gerente de planejamento",
+      "Responsável socioambiental"
+    ],
+    "checklist": [
+      "Conferi os números calculados pelo sistema contra a minha planilha ou fonte de origem.",
+      "Verifiquei se as premissas e os dados ausentes listados fazem sentido para o projeto.",
+      "Nenhum valor, norma ou cláusula citada foi inventado: tudo tem origem no material do projeto ou foi confirmado.",
+      "Os critérios, pesos e a sensibilidade foram aprovados pelo comitê técnico."
+    ]
+  },
+  "casos_de_teste": [
+    {
+      "nome": "Exemplo do livro",
+      "variaveis": {},
+      "esperado": {
+        "custo_km_Opcao_A": 494.1,
+        "custo_estacao_Opcao_B": 466.7,
+        "dif_capex": 1.4
+      }
+    }
+  ],
+  "versao": "1.0.0",
+  "status": "publicado",
+  "nivel_minimo": 1,
+  "modelo_recomendado": "avancado",
+  "esforco": "high",
+  "saida_tokens_estimados": 7000
+}

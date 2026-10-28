@@ -1,0 +1,285 @@
+{
+  "id": "renovavel.execucao.evm-recuperacao",
+  "titulo": "Análise de desvio EVM e plano de recuperação",
+  "setor": "renovavel",
+  "fase": "execucao",
+  "disciplinas": [
+    "cronograma",
+    "financas",
+    "riscos",
+    "recursos"
+  ],
+  "origem": {
+    "tipo": "livro",
+    "referencia": "Capítulo 5, Prompt 5.4"
+  },
+  "nivel_minimo": 0,
+  "resumo": "Analisa o desempenho de custo e prazo (EVM), projeta o custo final e a data de conclusão e propõe ações de recuperação.",
+  "decisao_apoiada": "Que ações de recuperação aprovar quando o projeto está atrasado e acima do custo.",
+  "quando_usar": "No fechamento periódico de medição, com PV, EV e AC consolidados.",
+  "nao_use_para": "Substituir o cronograma CPM ou a análise de caminho crítico. A projeção de prazo por SPI é uma aproximação.",
+  "classificacao_risco_uso": "medio",
+  "esforco": "medium",
+  "o_que_voce_recebe": [
+    "Tabela EVM completa",
+    "EAC por três métodos, VAC e TCPI",
+    "Projeção de conclusão",
+    "Plano de recuperação com responsável, prazo e impacto"
+  ],
+  "variaveis": [
+    {
+      "nome": "ativo",
+      "rotulo": "Ativo ou projeto",
+      "tipo": "texto",
+      "padrao": "Parque eólico onshore",
+      "max_chars": 120
+    },
+    {
+      "nome": "potencia_mw",
+      "rotulo": "Potência instalada",
+      "tipo": "numero",
+      "padrao": 150,
+      "unidade": "MW",
+      "minimo": 0
+    },
+    {
+      "nome": "aerogeradores",
+      "rotulo": "Número de aerogeradores",
+      "tipo": "numero",
+      "padrao": 50,
+      "minimo": 0
+    },
+    {
+      "nome": "semana_atual",
+      "rotulo": "Semana atual",
+      "tipo": "numero",
+      "padrao": 32,
+      "minimo": 0
+    },
+    {
+      "nome": "semanas_total",
+      "rotulo": "Duração planejada total",
+      "tipo": "numero",
+      "padrao": 78,
+      "unidade": "semanas",
+      "minimo": 1
+    },
+    {
+      "nome": "bac",
+      "rotulo": "BAC (orçamento no término)",
+      "tipo": "moeda",
+      "padrao": 680,
+      "unidade": "R$ milhões",
+      "minimo": 0
+    },
+    {
+      "nome": "pv",
+      "rotulo": "PV (valor planejado)",
+      "tipo": "moeda",
+      "padrao": 285,
+      "unidade": "R$ milhões",
+      "minimo": 0
+    },
+    {
+      "nome": "ev",
+      "rotulo": "EV (valor agregado)",
+      "tipo": "moeda",
+      "padrao": 248,
+      "unidade": "R$ milhões",
+      "minimo": 0
+    },
+    {
+      "nome": "ac",
+      "rotulo": "AC (custo real)",
+      "tipo": "moeda",
+      "padrao": 271,
+      "unidade": "R$ milhões",
+      "minimo": 1e-06
+    },
+    {
+      "nome": "etc",
+      "rotulo": "ETC informado pela equipe (opcional)",
+      "tipo": "moeda",
+      "obrigatoria": false,
+      "unidade": "R$ milhões",
+      "ajuda": "Preencha para habilitar o EAC3 (AC + ETC)."
+    },
+    {
+      "nome": "causas",
+      "rotulo": "Principais causas do desvio",
+      "tipo": "texto_longo",
+      "padrao": "Atraso na entrega de torres (fornecedor com problema logístico) e retrabalho em fundações (solo com capacidade portante inferior ao esperado).",
+      "max_chars": 2000
+    }
+  ],
+  "rctif": {
+    "papel": "Atue como um Controlador de Projetos Sênior (Project Controller) especializado em Earned Value Management (EVM) para projetos CAPEX de energia renovável.",
+    "contexto": "{{ativo}}, {{potencia_mw}} MW, {{aerogeradores}} aerogeradores. Semana {{semana_atual}} de {{semanas_total}}. Dados EVM atuais (valores em R$ milhões):\n• BAC (Budget at Completion): {{bac}}\n• PV (Planned Value): {{pv}}\n• EV (Earned Value): {{ev}}\n• AC (Actual Cost): {{ac}}\n• ETC informado pela equipe: {{etc}}\n• Principais causas do desvio: {{causas}}",
+    "tarefa": "Realize a análise de desempenho EVM completa e elabore um plano de recuperação de cronograma e custo.",
+    "instrucoes": "Estruture a análise de forma verificável. Em cada etapa, diferencie dados fornecidos, premissas, hipóteses e inferências. Declare os dados ausentes que podem alterar a conclusão. Não invente valores, cláusulas, requisitos legais, fontes ou resultados de simulações. Em seguida:\n1. EAC (Estimate at Completion) pelos três métodos: EAC1 (BAC / CPI), EAC2 (AC + (BAC − EV) / (CPI × SPI)) e EAC3 (AC + ETC, somente se houver ETC informado).\n2. VAC (Variance at Completion) e TCPI (To-Complete Performance Index).\n3. Projete a data de conclusão com base no SPI atual, deixando claro que é uma aproximação.\n4. Identifique as atividades do caminho crítico mais impactadas pelas causas informadas, sem inventar atividades que não constem do contexto.\n5. Proponha 3 ações de recuperação com impacto estimado em prazo e custo, indicando as premissas do impacto.\n6. A análise de tendência deve ser apresentada como cenário condicional aos índices atuais, sem inventar medições futuras.",
+    "formato": "Tabela EVM completa + análise de tendência (cenário condicional) + plano de recuperação com as colunas Ação | Responsável | Prazo de Implementação | Impacto Esperado (dias/R$)."
+  },
+  "verificacoes": [
+    {
+      "id": "cv",
+      "rotulo": "Variação de custo (CV = EV − AC)",
+      "expr": "ev - ac",
+      "unidade": "R$ milhões",
+      "casas": 1,
+      "tolerancia_rel": 0.005
+    },
+    {
+      "id": "sv",
+      "rotulo": "Variação de prazo (SV = EV − PV)",
+      "expr": "ev - pv",
+      "unidade": "R$ milhões",
+      "casas": 1,
+      "tolerancia_rel": 0.005
+    },
+    {
+      "id": "cpi",
+      "rotulo": "CPI (EV / AC)",
+      "expr": "ev / ac",
+      "unidade": "",
+      "casas": 3,
+      "tolerancia_rel": 0.005
+    },
+    {
+      "id": "spi",
+      "rotulo": "SPI (EV / PV)",
+      "expr": "ev / pv",
+      "unidade": "",
+      "casas": 3,
+      "tolerancia_rel": 0.005
+    },
+    {
+      "id": "pct_pv",
+      "rotulo": "PV como % do BAC",
+      "expr": "pv / bac * 100",
+      "unidade": "%",
+      "casas": 1,
+      "tolerancia_rel": 0.005
+    },
+    {
+      "id": "pct_ev",
+      "rotulo": "EV como % do BAC",
+      "expr": "ev / bac * 100",
+      "unidade": "%",
+      "casas": 1,
+      "tolerancia_rel": 0.005
+    },
+    {
+      "id": "pct_ac",
+      "rotulo": "AC como % do BAC",
+      "expr": "ac / bac * 100",
+      "unidade": "%",
+      "casas": 1,
+      "tolerancia_rel": 0.005
+    },
+    {
+      "id": "eac1",
+      "rotulo": "EAC1 (BAC / CPI)",
+      "expr": "bac / (ev / ac)",
+      "unidade": "R$ milhões",
+      "casas": 1,
+      "tolerancia_rel": 0.005
+    },
+    {
+      "id": "eac2",
+      "rotulo": "EAC2 (AC + (BAC − EV) / (CPI × SPI))",
+      "expr": "ac + (bac - ev) / ((ev / ac) * (ev / pv))",
+      "unidade": "R$ milhões",
+      "casas": 1,
+      "tolerancia_rel": 0.005
+    },
+    {
+      "id": "eac3",
+      "rotulo": "EAC3 (AC + ETC informado)",
+      "expr": "ac + etc",
+      "unidade": "R$ milhões",
+      "casas": 1,
+      "tolerancia_rel": 0.005
+    },
+    {
+      "id": "vac1",
+      "rotulo": "VAC com EAC1 (BAC − EAC1)",
+      "expr": "bac - bac / (ev / ac)",
+      "unidade": "R$ milhões",
+      "casas": 1,
+      "tolerancia_rel": 0.005
+    },
+    {
+      "id": "vac2",
+      "rotulo": "VAC com EAC2 (BAC − EAC2)",
+      "expr": "bac - (ac + (bac - ev) / ((ev / ac) * (ev / pv)))",
+      "unidade": "R$ milhões",
+      "casas": 1,
+      "tolerancia_rel": 0.005
+    },
+    {
+      "id": "tcpi",
+      "rotulo": "TCPI ((BAC − EV) / (BAC − AC))",
+      "expr": "(bac - ev) / (bac - ac)",
+      "unidade": "",
+      "casas": 3,
+      "tolerancia_rel": 0.005
+    },
+    {
+      "id": "duracao_projetada",
+      "rotulo": "Duração projetada (duração planejada / SPI)",
+      "expr": "semanas_total / (ev / pv)",
+      "unidade": "semanas",
+      "casas": 1,
+      "tolerancia_rel": 0.005,
+      "nota": "aproximação por SPI; confirmar no cronograma CPM"
+    },
+    {
+      "id": "atraso_projetado",
+      "rotulo": "Atraso projetado sobre a duração planejada",
+      "expr": "semanas_total / (ev / pv) - semanas_total",
+      "unidade": "semanas",
+      "casas": 1,
+      "tolerancia_rel": 0.005,
+      "nota": "aproximação por SPI; confirmar no cronograma CPM"
+    }
+  ],
+  "avisos": [
+    "O resultado é um rascunho analítico gerado por IA e depende dos dados informados. Valide com o responsável técnico antes de qualquer uso em decisão.",
+    "Os índices são calculados por código a partir de PV, EV e AC. Confirme que esses três valores vêm do mesmo corte de medição.",
+    "A projeção de prazo por SPI não substitui a análise do caminho crítico. Use-a como alerta, não como data de compromisso.",
+    "EAC3 só é calculado quando você informa o ETC."
+  ],
+  "validacao_humana": {
+    "papeis_sugeridos": [
+      "Controlador de projetos",
+      "Gerente do projeto"
+    ],
+    "checklist": [
+      "Conferi os números calculados pelo sistema contra a minha planilha ou fonte de origem.",
+      "Verifiquei se as premissas e os dados ausentes listados fazem sentido para o projeto.",
+      "Nenhum valor, norma ou cláusula citada foi inventado: tudo tem origem no material do projeto ou foi confirmado.",
+      "PV, EV e AC foram extraídos do mesmo corte de medição.",
+      "As ações de recuperação foram discutidas com os responsáveis indicados."
+    ]
+  },
+  "casos_de_teste": [
+    {
+      "nome": "Exemplo do livro (semana 32)",
+      "variaveis": {},
+      "esperado": {
+        "cv": -23.0,
+        "sv": -37.0,
+        "cpi": 0.915,
+        "spi": 0.87,
+        "eac1": 743.1,
+        "eac2": 813.5,
+        "vac1": -63.1,
+        "tcpi": 1.056
+      }
+    }
+  ],
+  "versao": "1.0.0",
+  "status": "publicado",
+  "modelo_recomendado": "avancado",
+  "saida_tokens_estimados": 7000
+}
